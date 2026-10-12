@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Market Insights - GCC Compass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="flex h-screen overflow-hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col flex-shrink-0">
+        <div class="h-16 flex items-center px-6 bg-slate-950 font-bold text-white text-lg gap-3">
+            <div class="w-8 h-8 rounded bg-blue-600 flex items-center justify-center text-white">
+                <i class="fa-solid fa-chart-line text-sm"></i>
+            </div>
+            <span>India Insights</span>
+        </div>
+
+        <nav class="flex-1 px-4 py-6 space-y-1">
+            <a href="#" onclick="switchTab('gcc')" id="nav-gcc" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white font-medium text-sm transition">
+                <i class="fa-solid fa-building w-5"></i> GCC Companies
+            </a>
+            <a href="#" onclick="switchTab('rent')" id="nav-rent" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white font-medium text-sm transition">
+                <i class="fa-solid fa-city w-5"></i> Office Rent Data
+            </a>
+            <a href="#" onclick="switchTab('talent')" id="nav-talent" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white font-medium text-sm transition">
+                <i class="fa-solid fa-indian-rupee-sign w-5"></i> Talent Salary Benchmarks
+            </a>
+            <a href="#" onclick="switchTab('incentives')" id="nav-incentives" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white font-medium text-sm transition">
+                <i class="fa-solid fa-award w-5"></i> Incentive Schemes
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-slate-800 text-xs text-slate-500">
+            <div>GCC Compass Platform</div>
+            <div class="text-emerald-400 font-semibold mt-1 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> System Online
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTAINER -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+
+        <!-- HEADER -->
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0">
+            <div class="text-sm font-medium text-slate-500 flex items-center gap-2">
+                <span>Platform</span>
+                <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                <span class="text-slate-900 font-semibold" id="header-breadcrumb">GCC Companies Registry</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full text-xs font-medium">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span> DB Connected
+                </span>
+                <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs">
+                    GCC
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN BODY -->
+        <main class="p-8 space-y-6">
+
+            <!-- PAGE TITLE -->
+            <div>
+                <h1 class="text-2xl font-bold text-slate-900">India Office, Talent & GCC Intelligence</h1>
+                <p class="text-sm text-slate-500 mt-1">Explore real GCC intelligence, commercial office rents, Sansovi compensation benchmarks, and state incentive policies</p>
+            </div>
+
+            <!-- KPI GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4 cursor-pointer hover:border-purple-400 transition" onclick="switchTab('gcc')">
+                    <div class="w-12 h-12 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-slate-900" id="kpi-gccs">274</div>
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">GCC Companies</div>
+                        <div class="text-[11px] text-purple-600 font-medium">Master Indian Registry</div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4 cursor-pointer hover:border-blue-400 transition" onclick="switchTab('rent')">
+                    <div class="w-12 h-12 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-city"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-slate-900" id="kpi-rents">64</div>
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Office Rents</div>
+                        <div class="text-[11px] text-blue-600 font-medium">7 City & Micro-Markets</div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4 cursor-pointer hover:border-emerald-400 transition" onclick="switchTab('talent')">
+                    <div class="w-12 h-12 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-slate-900" id="kpi-talent">330</div>
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Salary Benchmarks</div>
+                        <div class="text-[11px] text-emerald-600 font-medium">Sansovi GCC Intelligence</div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4 cursor-pointer hover:border-amber-400 transition" onclick="switchTab('incentives')">
+                    <div class="w-12 h-12 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-slate-900" id="kpi-incentives">43</div>
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Incentive Schemes</div>
+                        <div class="text-[11px] text-amber-600 font-medium">8 State GCC Policies</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABS -->
+            <div class="border-b border-slate-200 flex gap-8">
+                <button onclick="switchTab('gcc')" id="tab-gcc-btn" class="tab-btn py-3 text-sm font-semibold active">
+                    <i class="fa-solid fa-building mr-1.5"></i> GCC Companies (274)
+                </button>
+                <button onclick="switchTab('rent')" id="tab-rent-btn" class="tab-btn py-3 text-sm font-semibold text-slate-500 hover:text-slate-800">
+                    <i class="fa-solid fa-city mr-1.5"></i> Office Rent Benchmarks (64)
+                </button>
+                <button onclick="switchTab('talent')" id="tab-talent-btn" class="tab-btn py-3 text-sm font-semibold text-slate-500 hover:text-slate-800">
+                    <i class="fa-solid fa-indian-rupee-sign mr-1.5"></i> Talent Salary Benchmarks (330)
+                </button>
+                <button onclick="switchTab('incentives')" id="tab-incentives-btn" class="tab-btn py-3 text-sm font-semibold text-slate-500 hover:text-slate-800">
+                    <i class="fa-solid fa-award mr-1.5"></i> Incentive Schemes (43)
+                </button>
+            </div>
+
+            <!-- TAB 1: GCC COMPANIES -->
+            <div id="tab-gcc" class="space-y-6">
+                <!-- Filters -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1.5">Search GCC or Role</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-sm"></i>
+                            <input type="text" id="gcc-search" oninput="loadGCCs()" placeholder="Search company, notes, roles..." 
+                                   class="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1.5">Location (All Cities)</label>
+                        <select id="gcc-city" onchange="loadGCCs()" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="all">All Cities (All 9 Markets)</option>
+                            <option value="Bengaluru">Bengaluru (99)</option>
+                            <option value="Pune">Pune (44)</option>
+                            <option value="Hyderabad">Hyderabad (43)</option>
+                            <option value="Delhi NCR">Delhi NCR (29)</option>
+                            <option value="Chennai">Chennai (26)</option>
+                            <option value="Mumbai">Mumbai (25)</option>
+                            <option value="Kolkata">Kolkata (4)</option>
+                            <option value="Ahmedabad">Ahmedabad (2)</option>
+                            <option value="Coimbatore">Coimbatore (2)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1.5">Category / Sector</label>
+                        <select id="gcc-sector" onchange="loadGCCs()" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="all">All Sectors</option>
+                            <option value="Technology / Cloud / AI">Technology / Cloud / AI</option>
+                            <option value="BFSI / Fintech / Insurance">BFSI / Fintech / Insurance</option>
+                            <option value="Healthcare / Life Sciences / Pharma">Healthcare / Life Sciences / Pharma</option>
+                            <option value="Engineering / Automotive / Aerospace / Industrial">Engineering / Automotive / Industrial</option>
+                            <option value="Retail / CPG / Consumer">Retail / CPG / Consumer</option>
+                            <option value="Consulting / Professional Services">Consulting / Professional Services</option>
+                            <option value="Semiconductors / Electronics / Deep Tech">Semiconductors / Electronics</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button onclick="resetGCCFilters()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-medium transition">
+                            <i class="fa-solid fa-rotate-right mr-1"></i> Reset Filters
+                        </button>
+                    </div>
+                </div>
+
+                <!-- GCC Distribution Chart -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-slate-800 text-sm mb-3">GCC Distribution Across Indian Hubs</h3>
+                    <div class="h-56">
+                        <canvas id="gccChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- GCC Table -->
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="px-6 py-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                        <div class="font-bold text-slate-800 text-sm">
+                            GCC Registry Results <span id="gcc-count-badge" class="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-semibold">0</span>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto max-h-[500px]">
+                        <table class="w-full text-left text-sm text-slate-600">
+                            <thead class="bg-slate-100 text-slate-700 uppercase text-xs tracking-wider sticky top-0">
+                                <tr>
+                                    <th class="py-3 px-6">Company / GCC Name</th>
+                                    <th class="py-3 px-4">City</th>
+                                    <th class="py-3 px-4">Sector</th>
+                                    <th class="py-3 px-4">India Headcount</th>
+                                    <th class="py-3 px-6">Key Roles Hired</th>
+                                    <th class="py-3 px-4 text-right">Careers</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gcc-table-body" class="divide-y divide-slate-200"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: OFFICE RENT -->
+            <div id="tab-rent" class="space-y-6 hidden">
+                <!-- Filters -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1.5">Filter by City</label>
+                        <select id="rent-city" onchange="loadRents()" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="all">All Cities (7 Hubs)</option>
+                            <option value="Bengaluru">Bengaluru</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Delhi NCR">Delhi NCR</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Kolkata">Kolkata</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1.5">Rent Level</label>
+                        <select id="rent-level" onchange="loadRents()" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="all">All Levels (City Averages + Micro-Markets)</option>
+                            <option value="city_average">City Averages Only (7 Records)</option>
+                            <option value="micro_market">Micro-Markets Only (57 Records)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button onclick="resetRentFilters()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-medium transition">
+                            <i class="fa-solid fa-rotate-right mr-1"></i> Reset Rent Filters
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Rent Chart -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-slate-800 text-sm mb-3">City Average Office Rent Comparison (₹ / sq ft / month)</h3>
+                    <div class="h-60">
+                        <canvas id="rentChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Rent Table -->
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="px-6 py-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                        <div class="font-bold text-slate-800 text-sm">
+                            Office Rent Benchmarks <span id="rent-count-badge" class="ml-2 text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-semibold">0</span>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto max-h-[500px]">
+                        <table class="w-full text-left text-sm text-slate-600">
+                            <thead class="bg-slate-100 text-slate-700 uppercase text-xs tracking-wider sticky top-0">
+                                <tr>
+                                    <th class="py-3 px-6">City</th>
+                                    <th class="py-3 px-6">Micro Market</th>
+                                    <th class="py-3 px-4">Rent Level</th>
+                                    <th class="py-3 px-6 text-right">Rent (₹ / sq ft / month)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rent-table-body" class="divide-y divide-slate-200"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: TALENT SALARY BENCHMARKS (SANSOVI REPLICATED UI) -->
+            <div id="tab-talent" class="space-y-6 hidden">
+
+                <!-- Header Info Banner -->
+                <div class="bg-gradient-to-r from-purple-900 to-indigo-900 text-white p-6 rounded-2xl shadow-sm">
+                    <div>
+                        <span class="px-2.5 py-0.5 bg-purple-800 text-purple-200 rounded text-xs font-semibold uppercase tracking-wider">Sansovi Intelligence Data</span>
+                        <h2 class="text-xl font-bold mt-1">GCC Talent Salary Benchmark Calculator</h2>
+                        <p class="text-xs text-purple-200 mt-0.5">Real compensation percentiles, industry vertical multipliers, and multi-city cost indexes across Indian GCCs</p>
+                    </div>
+                </div>
+
+                <!-- Calculator Container Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+
+                    <!-- Left Column: Controls Card -->
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-5">
+                        <h3 class="font-bold text-slate-900 text-sm border-b border-slate-100 pb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-sliders text-indigo-600"></i> Benchmark Filters
+                        </h3>
+
+                        <!-- Role Selector -->
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1.5">Select Role</label>
+                            <select id="s-role" onchange="fetchSalaryBenchmark()" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium">
+                                <option value="data-engineer">Data Engineer</option>
+                                <option value="ml-engineer">Machine Learning / AI Engineer</option>
+                                <option value="swe">Software Engineer (SWE)</option>
+                                <option value="cloud-devops">Cloud & DevOps Engineer</option>
+                                <option value="risk-analyst">Risk & Quant Analyst</option>
+                                <option value="product-manager">Product Manager</option>
+                                <option value="cybersecurity">Cybersecurity Specialist</option>
+                                <option value="finance">Finance & Accounting</option>
+                                <option value="hr-bp">HR Business Partner</option>
+                                <option value="vp-tech">VP of Technology / Engineering</option>
+                                <option value="cto">Chief Technology Officer (CTO)</option>
+                            </select>
+                        </div>
+
+                        <!-- City Selector -->
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1.5">Location (City)</label>
+                            <select id="s-city" onchange="fetchSalaryBenchmark()" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium">
+                                <option value="bengaluru">Bengaluru</option>
+                                <option value="hyderabad">Hyderabad</option>
+                                <option value="pune">Pune</option>
+                                <option value="mumbai">Mumbai</option>
+                                <option value="chennai">Chennai</option>
+                                <option value="ncr">Delhi NCR</option>
+                            </select>
+                        </div>
+
+                        <!-- Experience Band Slider -->
+                        <div>
+                            <div class="flex justify-between items-center mb-1.5">
+                                <label class="text-xs font-medium text-slate-700">Experience Band</label>
+                                <span id="s-exp-label" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">3–7 years</span>
+                            </div>
+                            <input type="range" id="s-exp-slider" min="0" max="4" value="1" oninput="updateExpSlider(this.value)" class="w-full accent-indigo-600 cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                                <span>0-2y</span>
+                                <span>3-7y</span>
+                                <span>7-12y</span>
+                                <span>12-18y</span>
+                                <span>18+y</span>
+                            </div>
+                        </div>
+
+                        <!-- Your Salary CTC Input -->
+                        <div class="pt-2 border-t border-slate-100">
+                            <label class="block text-xs font-medium text-slate-700 mb-1.5">Compare Your Annual CTC (₹)</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-2.5 text-slate-400 text-xs font-semibold">₹</span>
+                                <input type="number" id="s-your-salary" oninput="renderYourSalaryComparison()" placeholder="e.g. 2800000" 
+                                       class="w-full pl-7 pr-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            </div>
+                            <p class="text-[11px] text-slate-400 mt-1">Enter your annual CTC in Rupees to see your exact percentile placement.</p>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex gap-2 pt-2">
+                            <button onclick="fetchSalaryBenchmark()" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-semibold transition shadow-sm">
+                                <i class="fa-solid fa-arrows-rotate mr-1"></i> Update
+                            </button>
+                            <button onclick="resetSalaryFilters()" class="py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-medium transition">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Columns (2-Span): Visual Benchmark Results -->
+                    <div class="lg:col-span-2 space-y-6">
+
+                        <!-- Main Results Card -->
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-6">
+                            
+                            <!-- Header Title & Chips -->
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                                <div>
+                                    <h3 id="res-role-title" class="text-lg font-bold text-slate-900">Data Engineer • 3–7 years</h3>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span id="res-chip-city" class="px-2 py-0.5 bg-indigo-50 text-indigo-700 rounded text-xs font-medium">Bengaluru</span>
+                                        <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-xs">All Verticals (Blended)</span>
+                                        <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-xs">All GCC Sizes</span>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-xs text-slate-400">Sample Dataset</div>
+                                    <div id="res-sample-points" class="text-sm font-bold text-slate-700">1,202 data points</div>
+                                </div>
+                            </div>
+
+                            <!-- Your Salary Placement Alert (if input given) -->
+                            <div id="res-your-alert" class="hidden p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center text-sm flex-shrink-0" id="res-pct-badge">
+                                    P75
+                                </div>
+                                <div class="text-xs text-emerald-900" id="res-pct-text">
+                                    Your salary places you at the <strong>75th percentile</strong> for this role.
+                                </div>
+                            </div>
+
+                            <!-- 4 Key Percentile Metrics Grid -->
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100 text-center">
+                                    <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">P25 (Entry)</div>
+                                    <div id="val-p25" class="text-xl font-bold text-slate-900 mt-1">₹18L</div>
+                                </div>
+                                <div class="p-3 bg-indigo-50 rounded-lg border border-indigo-100 text-center">
+                                    <div class="text-[11px] font-semibold text-indigo-700 uppercase tracking-wider">Median (P50)</div>
+                                    <div id="val-median" class="text-2xl font-black text-indigo-700 mt-0.5">₹28L</div>
+                                </div>
+                                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100 text-center">
+                                    <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">P75 (Top Tier)</div>
+                                    <div id="val-p75" class="text-xl font-bold text-slate-900 mt-1">₹42L</div>
+                                </div>
+                                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100 text-center">
+                                    <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">P90 (Elite)</div>
+                                    <div id="val-p90" class="text-xl font-bold text-slate-900 mt-1">₹58L</div>
+                                </div>
+                            </div>
+
+                            <!-- Visual Percentile Bar -->
+                            <div class="space-y-2 pt-2">
+                                <div class="flex justify-between text-xs text-slate-500 font-medium">
+                                    <span>P10: <b id="bar-p10">₹12L</b></span>
+                                    <span>Market Range: <b id="bar-typical" class="text-indigo-600">₹18L – ₹42L</b></span>
+                                    <span>P90: <b id="bar-p90">₹58L</b></span>
+                                </div>
+                                <div class="range-track my-4">
+                                    <div id="range-highlight-bar" class="range-highlight" style="left: 30%; width: 45%;"></div>
+                                    <div id="range-median-tick" class="range-tick" style="left: 50%;"></div>
+                                    <div id="range-your-tick" class="range-your-tick hidden" style="left: 60%;"></div>
+                                </div>
+                                <div class="flex justify-between text-[11px] text-slate-400">
+                                    <span>Lower Quartile</span>
+                                    <span>Market Median</span>
+                                    <span>Upper Quartile</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Industry Vertical Breakdown Table -->
+                        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                            <div class="px-6 py-4 border-b border-slate-200 bg-slate-50 flex justify-between items-center">
+                                <h4 class="font-bold text-slate-800 text-sm">Industry Vertical Breakdown (Multipliers)</h4>
+                                <span class="text-xs text-slate-500">Variance vs. All Verticals</span>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-sm text-slate-600">
+                                    <thead class="bg-slate-100 text-slate-700 text-xs uppercase tracking-wider">
+                                        <tr>
+                                            <th class="py-2.5 px-6">Industry Vertical</th>
+                                            <th class="py-2.5 px-4 text-center">P25</th>
+                                            <th class="py-2.5 px-4 text-center font-bold">Median</th>
+                                            <th class="py-2.5 px-4 text-center">P75</th>
+                                            <th class="py-2.5 px-6 text-right">Premium / Discount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="res-verticals-body" class="divide-y divide-slate-100">
+                                        <!-- Dynamic rows -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Multi-City Comparison Grid -->
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-slate-800 text-sm">Multi-City Cost Comparison Grid</h4>
+                                <span class="text-xs text-slate-500">6 Primary Tech Hubs</span>
+                            </div>
+                            <div id="res-city-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                <!-- Dynamic City Cards -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- TAB 4: INCENTIVES (STATE GCC POLICIES DASHBOARD) -->
+            <div id="tab-incentives" class="space-y-6 hidden">
+                <!-- Info Banner -->
+                <div class="bg-gradient-to-r from-amber-700 via-orange-600 to-amber-800 text-white p-6 rounded-2xl shadow-sm">
+                    <div>
+                        <span class="px-2.5 py-0.5 bg-amber-900/70 border border-amber-600 text-amber-200 rounded text-xs font-semibold uppercase tracking-wider">State Policy Intelligence</span>
+                        <h2 class="text-xl font-bold mt-1">State GCC Incentive Policies & Subsidy Schemes</h2>
+                        <p class="text-xs text-amber-100 mt-0.5">Government subsidies, capital capex support, R&D grants, payroll subsidies, and IP reimbursement across 8 key Indian states</p>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">State / Union Territory</label>
+                        <select id="incentive-state" onchange="loadIncentives()" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                            <option value="all">All States (8 States)</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Incentive Category</label>
+                        <select id="incentive-cat" onchange="loadIncentives()" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                            <option value="all">All Categories</option>
+                            <option value="Skill Development">Skill Development</option>
+                            <option value="Employment Generation">Employment Generation</option>
+                            <option value="Research & Development">Research & Development</option>
+                            <option value="Intellectual Property">Intellectual Property</option>
+                            <option value="Physical Infrastructure">Physical Infrastructure</option>
+                            <option value="Vision / Strategic Impact">Vision / Strategic Impact</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Search Keywords</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-search absolute left-3 top-2.5 text-slate-400 text-sm"></i>
+                            <input type="text" id="incentive-search" oninput="loadIncentives()" placeholder="Search stipend, capex, patent, subsidy..." class="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+                    </div>
+                    <div>
+                        <button onclick="resetIncentiveFilters()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-medium transition">
+                            <i class="fa-solid fa-rotate-right mr-1"></i> Reset Filters
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Incentive Cards / Table View -->
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="px-6 py-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                        <div class="font-bold text-slate-800 text-sm">
+                            Incentive Policies & Clauses <span id="incentive-count-badge" class="ml-2 text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-semibold">0</span>
+                        </div>
+                        <span class="text-xs text-slate-500">Source: State GCC Policies, Colliers GCC Intelligence</span>
+                    </div>
+                    <div class="overflow-x-auto max-h-[600px]">
+                        <table class="w-full text-left text-sm text-slate-600">
+                            <thead class="bg-slate-100 text-slate-700 uppercase text-xs tracking-wider sticky top-0">
+                                <tr>
+                                    <th class="py-3 px-6">State & Policy</th>
+                                    <th class="py-3 px-4">Category</th>
+                                    <th class="py-3 px-6">Indicative Incentives & Benefits</th>
+                                    <th class="py-3 px-4">Eligibility / Criteria</th>
+                                    <th class="py-3 px-4">Status</th>
+                                    <th class="py-3 px-4 text-right">Official Policy</th>
+                                </tr>
+                            </thead>
+                            <tbody id="incentive-table-body" class="divide-y divide-slate-200"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #f8fafc;
+}
+
+.tab-btn.active {
+    border-bottom: 2px solid #2563eb;
+    color: #2563eb;
+    font-weight: 600;
+}
+
+/* Sansovi Custom Range Bar Styles */
+.range-track {
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 999px;
+    position: relative;
+}
+
+.range-highlight {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, #6366f1, #3b82f6);
+    border-radius: 999px;
+}
+
+.range-tick {
+    position: absolute;
+    top: -5px;
+    bottom: -5px;
+    width: 4px;
+    background: #1e1b4b;
+    border-radius: 2px;
+    transform: translateX(-50%);
+}
+
+.range-your-tick {
+    position: absolute;
+    top: -8px;
+    bottom: -8px;
+    width: 4px;
+    background: #10b981;
+    border-radius: 2px;
+    transform: translateX(-50%);
+}
+
+.range-your-tick::after {
+    content: 'You';
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    font-weight: 700;
+    color: #047857;
+    background: #ecfdf5;
+    padding: 1px 5px;
+    border-radius: 4px;
+    white-space: nowrap;
+}

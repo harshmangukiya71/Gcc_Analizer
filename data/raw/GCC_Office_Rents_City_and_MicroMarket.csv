@@ -1,0 +1,65 @@
+﻿rent_level,city,micro_market,rent_inr_per_sqft_per_month
+city_average,Bengaluru,,103.0
+city_average,Chennai,,79.8
+city_average,Delhi NCR,,133.2
+city_average,Hyderabad,,92.7
+city_average,Kolkata,,65.9
+city_average,Mumbai,,188.0
+city_average,Pune,,88.8
+micro_market,Bengaluru,CBD,161.6
+micro_market,Bengaluru,SBD 1,154.2
+micro_market,Bengaluru,ORR,113.2
+micro_market,Bengaluru,SBD 2,95.3
+micro_market,Bengaluru,PBD,77.1
+micro_market,Bengaluru,North Bengaluru,75.4
+micro_market,Bengaluru,Whitefield,73.4
+micro_market,Bengaluru,Electronic City,66.2
+micro_market,Chennai,OMR Zone 1,99.5
+micro_market,Chennai,CBD,92.9
+micro_market,Chennai,Guindy,90.0
+micro_market,Chennai,MPR,83.5
+micro_market,Chennai,PTR,80.0
+micro_market,Chennai,Off CBD,71.6
+micro_market,Chennai,GST,52.6
+micro_market,Chennai,OMR Zone 2,49.0
+micro_market,Chennai,Ambattur,47.4
+micro_market,Delhi NCR,Delhi — Connaught Place,356.9
+micro_market,Delhi NCR,Delhi — Aerocity,281.7
+micro_market,Delhi NCR,Gurugram — Golf Course Road,197.8
+micro_market,Delhi NCR,South Delhi,186.4
+micro_market,Delhi NCR,Gurugram — Cyber City,180.7
+micro_market,Delhi NCR,Gurugram — MG Road,155.3
+micro_market,Delhi NCR,Noida — Sector 16A and 16B,136.6
+micro_market,Delhi NCR,Gurugram — NH 48,119.0
+micro_market,Delhi NCR,Gurugram — Golf Course Extension Road,102.6
+micro_market,Delhi NCR,Gurugram — Other areas,91.4
+micro_market,Delhi NCR,Noida Expressway,77.5
+micro_market,Delhi NCR,Gurugram — Sohna Road,76.7
+micro_market,Delhi NCR,Noida — Sector 62,75.2
+micro_market,Hyderabad,SBD,110.1
+micro_market,Hyderabad,Off SBD,75.0
+micro_market,Hyderabad,CBD,61.8
+micro_market,Hyderabad,PBD,49.3
+micro_market,Kolkata,CBD,116.1
+micro_market,Kolkata,SBD,100.0
+micro_market,Kolkata,PBD,60.6
+micro_market,Mumbai,Bandra Kurla Complex (BKC),392.7
+micro_market,Mumbai,Worli / Prabhadevi,287.8
+micro_market,Mumbai,CBD,274.3
+micro_market,Mumbai,Lower Parel,265.0
+micro_market,Mumbai,Goregaon / JVLR,192.5
+micro_market,Mumbai,Kalina,182.6
+micro_market,Mumbai,Powai,179.7
+micro_market,Mumbai,LBS / Eastern Suburbs,163.4
+micro_market,Mumbai,Andheri East,163.2
+micro_market,Mumbai,Malad,107.0
+micro_market,Mumbai,Thane,99.6
+micro_market,Mumbai,Navi Mumbai,86.2
+micro_market,Pune,CBD,110.0
+micro_market,Pune,Kharadi,95.5
+micro_market,Pune,Baner–Balewadi,95.3
+micro_market,Pune,Viman Nagar,95.1
+micro_market,Pune,Wakad,87.0
+micro_market,Pune,Hadapsar,86.3
+micro_market,Pune,PCMC,63.8
+micro_market,Pune,Hinjewadi,61.2

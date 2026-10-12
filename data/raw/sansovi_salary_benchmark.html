@@ -1,0 +1,4043 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- Meta Data -->
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+	<!-- Google Web Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+	<style>
+		/* =============================================
+		   CSS VARIABLES
+		   ============================================= */
+		:root {
+			--brand-purple:      #5f15cd;
+			--brand-purple-dark: #5520B0;
+			--brand-green:       #0F9D6B;
+			--brand-green-dark:  #0C7D55;
+			--white:             #ffffff;
+			--transition:        0.28s ease;
+		}
+
+		/* =============================================
+		   MAIN HEADER
+		   Default  = brand purple background
+		   Scrolled = white background
+		   ============================================= */
+		#masthead.site-header {
+			background: var(--brand-purple);
+			position: sticky;
+			top: 0;
+			z-index: 9999;
+			transition: background 0.35s ease, box-shadow 0.35s ease;
+			box-shadow: none;
+		}
+		#masthead.site-header.header-scrolled {
+			background: #ffffff;
+			box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+		}
+.gcc-nav-wrap .menu li a,
+.gcc-nav-wrap ul li a {
+    padding: 8px 6px !important;
+    font-size: 15px !important;
+}
+
+.gcc-nav-wrap .menu,
+.gcc-nav-wrap ul {
+    gap: 0 !important;
+}
+		/* ---- Header inner layout ---- */
+		.gcc-header-inner {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			height: 70px;
+			gap: 20px;
+		}
+
+		/* =============================================
+		   TOP BAR LAYOUT
+		   Left (back link) | Center (text) | Right (contact)
+		   No overlap — sides take their natural width,
+		   center fills the remaining space.
+		   ============================================= */
+		.custom-top-bar .topbar-inner {
+			display: flex;
+			align-items: center;
+			gap: 24px;
+			flex-wrap: nowrap;
+		}
+		/* Left: only as wide as its content */
+		.custom-top-bar .topbar-left {
+			flex: 0 0 auto;
+			display: flex;
+			justify-content: flex-start;
+		}
+		/* Center: takes all remaining space, text centered inside it */
+		.custom-top-bar .topbar-center {
+			flex: 1 1 auto;
+			text-align: center;
+			min-width: 0;
+			overflow: hidden;
+		}
+		.custom-top-bar .topbar-center p {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			margin: 0;
+		}
+		/* Right: only as wide as its content, never shrinks/overlaps */
+		.custom-top-bar .topbar-right {
+			flex: 0 0 auto;
+			display: flex;
+			justify-content: flex-end;
+		}
+
+		/* Back to sansovi.com link */
+		.topbar-back-link {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			color: #ffffff;
+			text-decoration: none;
+			font-size: 13.5px;
+			font-weight: 500;
+			white-space: nowrap;
+			transition: opacity var(--transition);
+		}
+		.topbar-back-link:hover {
+			opacity: 0.8;
+			color: #ffffff;
+		}
+		.topbar-back-link .back-arrow {
+			font-size: 14px;
+			line-height: 1;
+		}
+
+		/* Right side: phone + email (icon + text) */
+		.topbar-contact-icons {
+			list-style: none;
+			display: flex;
+			align-items: center;
+			gap: 18px;
+			margin: 0;
+			padding: 0;
+		}
+		.topbar-contact-icons li a {
+			display: inline-flex;
+			align-items: center;
+			gap: 7px;
+			color: #ffffff;
+			font-size: 13.5px;
+			font-weight: 500;
+			text-decoration: none;
+			white-space: nowrap;
+			transition: opacity var(--transition);
+		}
+		.topbar-contact-icons li a:hover {
+			opacity: 0.8;
+			color: #ffffff;
+		}
+		.topbar-contact-icons li a i {
+			font-size: 13px;
+		}
+
+		/* =============================================
+		   LOGO
+		   ============================================= */
+		.gcc-site-logo a {
+			display: flex;
+			align-items: center;
+			text-decoration: none;
+		}
+		.gcc-site-logo img {
+			height: 36px;
+			width: auto;
+			display: block;
+		}
+		/* Default: show main (white) logo */
+		.gcc-site-logo .gcc-logo-main   { display: block; }
+		.gcc-site-logo .gcc-logo-sticky  { display: none; }
+		/* Scrolled: switch to purple logo */
+		#masthead.header-scrolled .gcc-site-logo .gcc-logo-main   { display: none; }
+		#masthead.header-scrolled .gcc-site-logo .gcc-logo-sticky  { display: block; }
+
+		/* =============================================
+		   DESKTOP NAV MENU
+		   ============================================= */
+		.gcc-nav-wrap {
+			display: flex;
+			align-items: center;
+			flex: 1;
+			justify-content: center;
+		}
+		.gcc-nav-wrap .menu,
+		.gcc-nav-wrap ul {
+			list-style: none;
+			display: flex;
+			align-items: center;
+			gap: 2px;
+			margin: 0;
+			padding: 0;
+		}
+
+		/* Nav links — white text on purple */
+		.gcc-nav-wrap .menu li a,
+		.gcc-nav-wrap ul li a {
+			display: block;
+			padding: 8px 14px;
+			color: rgba(255,255,255,0.92);
+			font-weight: 500;
+			font-size: 14.5px;
+			text-decoration: none;
+			border-radius: 6px;
+			white-space: nowrap;
+			transition: color var(--transition), background var(--transition);
+		}
+		.gcc-nav-wrap .menu li a:hover,
+		.gcc-nav-wrap ul li a:hover {
+			color: #ffffff;
+			background: rgba(255,255,255,0.15);
+		}
+		.gcc-nav-wrap .menu li.current-menu-item > a {
+			color: #ffffff;
+			font-weight: 600;
+		}
+
+		/* Nav links — dark text on white (scrolled) */
+		#masthead.header-scrolled .gcc-nav-wrap .menu li a,
+		#masthead.header-scrolled .gcc-nav-wrap ul li a {
+			color: #1a1a2e;
+		}
+		#masthead.header-scrolled .gcc-nav-wrap .menu li a:hover,
+		#masthead.header-scrolled .gcc-nav-wrap ul li a:hover {
+			color: var(--brand-purple);
+			background: rgba(108,43,217,0.07);
+		}
+		#masthead.header-scrolled .gcc-nav-wrap .menu li.current-menu-item > a {
+			color: var(--brand-purple);
+		}
+
+		/* =============================================
+		   BUTTONS AREA
+		   ============================================= */
+		.gcc-nav-buttons {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			flex-shrink: 0;
+		}
+
+		/* =============================================
+		   SEARCH ICON + INLINE SEARCH (DESKTOP)
+		   ============================================= */
+		.gcc-search {
+			position: relative;
+			display: flex;
+			align-items: center;
+		}
+		/* Search trigger button (icon only) */
+		.gcc-search-trigger {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			background: transparent;
+			border: none;
+			color: rgba(255,255,255,0.92);
+			cursor: pointer;
+			padding: 9px 12px;
+			border-radius: 6px;
+			transition: color var(--transition), background var(--transition);
+		}
+		.gcc-search-trigger:hover {
+			background: rgba(255,255,255,0.15);
+			color: #ffffff;
+		}
+		.gcc-search-trigger i { font-size: 16px; }
+		/* Scrolled state */
+		#masthead.header-scrolled .gcc-search-trigger {
+			color: #1a1a2e;
+		}
+		#masthead.header-scrolled .gcc-search-trigger:hover {
+			color: var(--brand-purple);
+			background: rgba(108,43,217,0.07);
+		}
+
+		/* =============================================
+		   SEARCH DROPDOWN PANEL
+		   ============================================= */
+		.gcc-search-panel {
+			position: absolute;
+			top: calc(100% + 12px);
+			right: 0;
+			width: 420px;
+			max-width: 90vw;
+			background: #ffffff;
+			border-radius: 14px;
+			box-shadow: 0 12px 48px rgba(15,35,66,0.22);
+			border: 1px solid rgba(15,35,66,0.08);
+			opacity: 0;
+			visibility: hidden;
+			transform: translateY(-8px);
+			transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+			z-index: 10000;
+			overflow: hidden;
+		}
+		.gcc-search.gcc-search-open .gcc-search-panel {
+			opacity: 1;
+			visibility: visible;
+			transform: translateY(0);
+		}
+
+		/* Search input row inside panel */
+		.gcc-search-inputwrap {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			padding: 14px 16px;
+			border-bottom: 1px solid #eee;
+		}
+		.gcc-search-inputwrap i {
+			color: #6B6B66;
+			font-size: 15px;
+			flex-shrink: 0;
+		}
+		.gcc-search-input {
+			flex: 1;
+			border: none;
+			outline: none;
+			font-family: 'Inter', sans-serif;
+			font-size: 15px;
+			color: #1a1a2e;
+			background: transparent;
+		}
+		.gcc-search-input::placeholder { color: #9a9a95; }
+		.gcc-search-clear {
+			border: none;
+			background: transparent;
+			color: #9a9a95;
+			cursor: pointer;
+			font-size: 14px;
+			padding: 4px;
+			display: none;
+		}
+		.gcc-search-clear.show { display: block; }
+
+		/* Results list — fixed height, scrolls after ~5 results */
+		.gcc-search-results {
+			height: 300px;
+			max-height: 300px;
+			overflow-y: auto;
+			overflow-x: hidden;
+		}
+		/* When only the hint/state message is shown, don't force full height */
+		.gcc-search-results.is-empty {
+			height: auto;
+			max-height: 300px;
+		}
+		/* Thin custom scrollbar */
+		.gcc-search-results::-webkit-scrollbar { width: 6px; }
+		.gcc-search-results::-webkit-scrollbar-track { background: transparent; }
+		.gcc-search-results::-webkit-scrollbar-thumb {
+			background: rgba(15,35,66,0.18);
+			border-radius: 100px;
+		}
+		.gcc-search-results::-webkit-scrollbar-thumb:hover { background: rgba(15,35,66,0.32); }
+		.gcc-search-results { scrollbar-width: thin; scrollbar-color: rgba(15,35,66,0.18) transparent; }
+		.gcc-search-result {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			padding: 12px 16px;
+			text-decoration: none;
+			color: #1a1a2e;
+			border-bottom: 1px solid #f4f4f2;
+			transition: background 0.15s ease;
+		}
+		.gcc-search-result:last-child { border-bottom: none; }
+		.gcc-search-result:hover { background: #f7f5ff; }
+		.gcc-sr-logo {
+			width: 36px;
+			height: 36px;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: 700;
+			font-size: 12px;
+			color: #fff;
+			flex-shrink: 0;
+		}
+		.gcc-sr-info { flex: 1; min-width: 0; }
+		.gcc-sr-name {
+			font-size: 14px;
+			font-weight: 600;
+			color: #0F2342;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.gcc-sr-parent {
+			font-size: 11.5px;
+			color: #6B6B66;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.gcc-sr-arrow {
+			color: #c4c4c0;
+			font-size: 12px;
+			flex-shrink: 0;
+		}
+
+		/* State messages */
+		.gcc-search-state {
+			padding: 28px 16px;
+			text-align: center;
+			font-size: 13.5px;
+			color: #6B6B66;
+		}
+		.gcc-search-hint {
+			padding: 20px 16px;
+			text-align: center;
+			font-size: 13px;
+			color: #9a9a95;
+		}
+
+		/* mini spinner */
+		.gcc-spinner {
+			width: 18px; height: 18px;
+			border: 2px solid #e0e0e0;
+			border-top-color: var(--brand-purple);
+			border-radius: 50%;
+			animation: gcc-spin 0.7s linear infinite;
+			margin: 0 auto 8px;
+		}
+		@keyframes gcc-spin { to { transform: rotate(360deg); } }
+
+		/* "Claim your GCC" — outlined white on purple */
+		.gcc-btn-outline {
+			display: inline-flex;
+			align-items: center;
+			padding: 9px 18px;
+			border: 1.5px solid rgba(255,255,255,0.75);
+			color: #ffffff;
+			background: transparent;
+			border-radius: 8px;
+			font-size: 14px;
+			font-weight: 600;
+			text-decoration: none;
+			white-space: nowrap;
+			cursor: pointer;
+			transition: background var(--transition), color var(--transition), border-color var(--transition);
+		}
+		.gcc-btn-outline:hover {
+			background: rgba(255,255,255,0.18);
+			color: #ffffff;
+			border-color: #ffffff;
+		}
+		/* Scrolled: purple outline */
+		#masthead.header-scrolled .gcc-btn-outline {
+			border-color: var(--brand-purple);
+			color: var(--brand-purple);
+		}
+		#masthead.header-scrolled .gcc-btn-outline:hover {
+			background: var(--brand-purple);
+			color: #ffffff;
+		}
+
+		.gcc-btn-arrow {
+			display: inline-block;
+			transition: transform var(--transition);
+		}
+/* Drawer nav links — tighter padding */
+.gcc-drawer-nav ul li a,
+.gcc-drawer-nav .menu li a {
+    padding: 11px 24px !important;
+}
+
+/* Stick buttons right below last menu item */
+.gcc-drawer-buttons {
+    padding: 16px 20px !important;
+    margin-top: 0 !important;
+}
+
+/* Remove flex:1 stretch from nav so it doesn't push buttons down */
+.gcc-drawer-nav {
+    flex: 0 0 auto !important;
+    padding: 6px 0 !important;
+}
+		/* =============================================
+		   MOBILE SEARCH ICON (in header bar, next to hamburger)
+		   ============================================= */
+		.gcc-mobile-search-btn {
+			display: none;
+			width: 40px;
+			height: 40px;
+			align-items: center;
+			justify-content: center;
+			background: transparent;
+			border: 1.5px solid rgba(255,255,255,0.55);
+			border-radius: 8px;
+			cursor: pointer;
+			flex-shrink: 0;
+			color: #ffffff;
+			font-size: 15px;
+		}
+		#masthead.header-scrolled .gcc-mobile-search-btn {
+			border-color: rgba(108,43,217,0.40);
+			color: var(--brand-purple);
+		}
+
+		/* =============================================
+		   HAMBURGER — mobile only
+		   ============================================= */
+		.gcc-hamburger {
+			display: none;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			gap: 5px;
+			width: 40px;
+			height: 40px;
+			background: transparent;
+			border: 1.5px solid rgba(255,255,255,0.55);
+			border-radius: 8px;
+			cursor: pointer;
+			padding: 6px;
+			flex-shrink: 0;
+		}
+		#masthead.header-scrolled .gcc-hamburger {
+			border-color: rgba(108,43,217,0.40);
+		}
+		.gcc-hamburger .gcc-bar {
+			display: block;
+			width: 22px;
+			height: 2px;
+			background: #ffffff;
+			border-radius: 2px;
+			transition: transform 0.3s ease, opacity 0.3s ease;
+		}
+		#masthead.header-scrolled .gcc-hamburger .gcc-bar {
+			background: var(--brand-purple);
+		}
+		/* Animated X */
+		.gcc-hamburger.gcc-is-open .gcc-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+		.gcc-hamburger.gcc-is-open .gcc-bar:nth-child(2) { opacity: 0; }
+		.gcc-hamburger.gcc-is-open .gcc-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+		/* =============================================
+		   MOBILE DRAWER — slides LEFT → RIGHT
+		   ============================================= */
+		.gcc-mobile-drawer {
+			display: none;
+			position: fixed;
+			inset: 0;
+			z-index: 99998;
+			pointer-events: none;
+		}
+		.gcc-mobile-drawer.gcc-drawer-open {
+			display: block;
+			pointer-events: all;
+		}
+
+		/* Backdrop */
+		.gcc-drawer-backdrop {
+			position: absolute;
+			inset: 0;
+			background: rgba(10,10,30,0.55);
+			backdrop-filter: blur(3px);
+			opacity: 0;
+			transition: opacity 0.3s ease;
+		}
+		.gcc-drawer-open .gcc-drawer-backdrop { opacity: 1; }
+
+		/* Panel anchored to LEFT, starts off-screen left */
+		.gcc-drawer-panel {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 300px;
+			max-width: 85vw;
+			height: 100%;
+			background: #ffffff;
+			box-shadow: 6px 0 32px rgba(0,0,0,0.15);
+			transform: translateX(-100%);
+			transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
+			display: flex;
+			flex-direction: column;
+			overflow-y: auto;
+		}
+		.gcc-drawer-open .gcc-drawer-panel { transform: translateX(0); }
+
+		/* Drawer top bar — purple */
+		.gcc-drawer-head {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 16px 20px;
+			background: var(--brand-purple);
+			border-bottom: 1px solid rgba(255,255,255,0.12);
+		}
+		.gcc-drawer-head img { height: 36px; }
+		.gcc-drawer-close {
+			width: 34px;
+			height: 34px;
+			border-radius: 50%;
+			border: 1.5px solid rgba(255,255,255,0.45);
+			background: transparent;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			font-size: 16px;
+			color: #ffffff;
+			transition: background var(--transition);
+			line-height: 1;
+		}
+		.gcc-drawer-close:hover { background: rgba(255,255,255,0.20); }
+
+		/* Drawer nav links */
+		.gcc-drawer-nav {
+			flex: 1;
+			padding: 6px 0;
+		}
+		.gcc-drawer-nav ul,
+		.gcc-drawer-nav .menu {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		.gcc-drawer-nav ul li a,
+		.gcc-drawer-nav .menu li a {
+			display: block;
+			padding: 14px 24px;
+			color: #1a1a2e;
+			font-size: 15px;
+			font-weight: 500;
+			text-decoration: none;
+			border-bottom: 1px solid #f2f2f2;
+			transition: color var(--transition), background var(--transition), padding-left 0.2s ease;
+		}
+		.gcc-drawer-nav ul li a:hover,
+		.gcc-drawer-nav .menu li a:hover {
+			color: var(--brand-purple);
+			background: rgba(108,43,217,0.04);
+			padding-left: 30px;
+		}
+		.gcc-drawer-nav ul li.current-menu-item > a,
+		.gcc-drawer-nav .menu li.current-menu-item > a {
+			color: var(--brand-purple);
+			font-weight: 600;
+			border-left: 3px solid var(--brand-purple);
+		}
+
+		/* Drawer bottom buttons */
+		.gcc-drawer-buttons {
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			border-top: 1px solid #f0f0f0;
+		}
+		.gcc-drawer-buttons .gcc-btn-outline {
+			justify-content: center;
+			width: 100%;
+			/* always purple in drawer */
+			border-color: var(--brand-purple);
+			color: var(--brand-purple);
+		}
+		.gcc-drawer-buttons .gcc-btn-outline:hover {
+			background: var(--brand-purple);
+			color: #ffffff;
+		}
+
+		/* =============================================
+		   MOBILE FULL-SCREEN SEARCH OVERLAY
+		   ============================================= */
+		.gcc-msearch-overlay {
+			display: none;
+			position: fixed;
+			inset: 0;
+			z-index: 99999;
+			background: #ffffff;
+			flex-direction: column;
+		}
+		.gcc-msearch-overlay.open { display: flex; }
+		.gcc-msearch-top {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			padding: 14px 16px;
+			background: var(--brand-purple);
+		}
+		.gcc-msearch-back {
+			background: transparent;
+			border: none;
+			color: #fff;
+			font-size: 20px;
+			cursor: pointer;
+			padding: 4px 8px;
+			flex-shrink: 0;
+		}
+		.gcc-msearch-inputwrap {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			background: rgba(255,255,255,0.16);
+			border-radius: 10px;
+			padding: 10px 14px;
+		}
+		.gcc-msearch-inputwrap i { color: rgba(255,255,255,0.8); font-size: 15px; }
+		.gcc-msearch-input {
+			flex: 1;
+			border: none;
+			outline: none;
+			background: transparent;
+			color: #fff;
+			font-family: 'Inter', sans-serif;
+			font-size: 15px;
+		}
+		.gcc-msearch-input::placeholder { color: rgba(255,255,255,0.7); }
+		.gcc-msearch-results {
+			flex: 1;
+			overflow-y: auto;
+		}
+		.gcc-msearch-results .gcc-search-result { padding: 14px 18px; }
+
+		/* =============================================
+		   RESPONSIVE
+		   ============================================= */
+		@media (max-width: 992px) {
+			.gcc-nav-wrap    { display: none; }
+			.gcc-nav-buttons { display: none; }
+			.gcc-mobile-search-btn { display: flex; }
+			.gcc-hamburger   { display: flex; }
+
+			/* Logo stays left; search + hamburger grouped tightly on the right */
+			.gcc-header-inner {
+				justify-content: flex-start;
+				gap: 10px;
+			}
+			.gcc-site-logo { margin-right: auto; }
+		}
+
+		/* Top bar: shrink contact to icons only when space gets tight */
+		@media (max-width: 1400px) {
+			.topbar-contact-icons li a span { display: none; }
+			.topbar-contact-icons { gap: 12px; }
+		}
+	</style>
+
+	<script>var chatbot_id = 11655; !function () { var t, e, a = document, s = "smatbot-chatbot"; a.getElementById(s) || (t = a.createElement("script"), t.id = s, t.type = "text/javascript", t.src = "https://plugin.smatbot.com/smatbot_plugin.js.gz", e = a.getElementsByTagName("script")[0], e.parentNode.insertBefore(t, e)) }();</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/1.5.1/fingerprint2.min.js"></script>
+	<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v28.6 - https://yoast.com/product/yoast-seo-wordpress/ -->
+	<title>Salary Benchmark - Sansovi</title>
+	<link rel="canonical" href="https://www.sansovi.com/gcc/salary-benchmark/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Salary Benchmark - Sansovi" />
+	<meta property="og:url" content="https://www.sansovi.com/gcc/salary-benchmark/" />
+	<meta property="og:site_name" content="Sansovi" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https:\/\/schema.org","@graph":[{"@type":"WebPage","@id":"https:\/\/www.sansovi.com\/gcc\/salary-benchmark\/","url":"https:\/\/www.sansovi.com\/gcc\/salary-benchmark\/","name":"Salary Benchmark - Sansovi","isPartOf":{"@id":"https:\/\/www.sansovi.com\/#website"},"datePublished":"2026-05-28T10:47:39+00:00","breadcrumb":{"@id":"https:\/\/www.sansovi.com\/gcc\/salary-benchmark\/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https:\/\/www.sansovi.com\/gcc\/salary-benchmark\/"]}]},{"@type":"BreadcrumbList","@id":"https:\/\/www.sansovi.com\/gcc\/salary-benchmark\/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https:\/\/www.sansovi.com\/"},{"@type":"ListItem","position":2,"name":"GCC","item":"https:\/\/www.sansovi.com\/gcc\/"},{"@type":"ListItem","position":3,"name":"Salary Benchmark"}]},{"@type":"WebSite","@id":"https:\/\/www.sansovi.com\/#website","url":"https:\/\/www.sansovi.com\/","name":"Sansovi","description":"","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https:\/\/www.sansovi.com\/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"en-US"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel="alternate" type="application/rss+xml" title="Sansovi &raquo; Feed" href="https://www.sansovi.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Sansovi &raquo; Comments Feed" href="https://www.sansovi.com/comments/feed/" />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://www.sansovi.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.sansovi.com%2Fgcc%2Fsalary-benchmark%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://www.sansovi.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.sansovi.com%2Fgcc%2Fsalary-benchmark%2F&#038;format=xml" />
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id="wp-emoji-styles-inline-css">
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id="wp-block-library-inline-css">
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-break:normal!important}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style^=border-color],[style*=";border-color"],[style*="; border-color"]){border-style:solid}html :where([style^=border-top-color],[style*=";border-top-color"],[style*="; border-top-color"]){border-top-style:solid}html :where([style^=border-right-color],[style*=";border-right-color"],[style*="; border-right-color"]){border-right-style:solid}html :where([style^=border-bottom-color],[style*=";border-bottom-color"],[style*="; border-bottom-color"]){border-bottom-style:solid}html :where([style^=border-left-color],[style*=";border-left-color"],[style*="; border-left-color"]){border-left-style:solid}html :where([style^=border-width],[style*=";border-width"],[style*="; border-width"]){border-style:solid}html :where([style^=border-top-width],[style*=";border-top-width"],[style*="; border-top-width"]){border-top-style:solid}html :where([style^=border-right-width],[style*=";border-right-width"],[style*="; border-right-width"]){border-right-style:solid}html :where([style^=border-bottom-width],[style*=";border-bottom-width"],[style*="; border-bottom-width"]){border-bottom-style:solid}html :where([style^=border-left-width],[style*=";border-left-width"],[style*="; border-left-width"]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+
+/*# sourceURL=/wp-includes/css/dist/block-library/common.min.css */
+</style>
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}.wp-block-button{--wp--preset--dimension--25: 25%;--wp--preset--dimension--50: 50%;--wp--preset--dimension--75: 75%;--wp--preset--dimension--100: 100%;}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<link rel='stylesheet' id='contact-form-7-css' href='https://www.sansovi.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.2.1' media='all' />
+<link rel='stylesheet' id='nbcpf-intlTelInput-style-css' href='https://www.sansovi.com/wp-content/plugins/country-phone-field-contact-form-7/assets/css/intlTelInput.min.css?ver=7.1.3' media='all' />
+<link rel='stylesheet' id='nbcpf-countryFlag-style-css' href='https://www.sansovi.com/wp-content/plugins/country-phone-field-contact-form-7/assets/css/countrySelect.min.css?ver=7.1.3' media='all' />
+<link rel='stylesheet' id='wpcf7-redirect-script-frontend-css' href='https://www.sansovi.com/wp-content/plugins/wpcf7-redirect/build/assets/frontend-script.css?ver=2c532d7e2be36f6af233' media='all' />
+<link rel='stylesheet' id='sansovi-style-css' href='https://www.sansovi.com/wp-content/themes/sansovi/style.css?ver=1.0.0' media='all' />
+<link rel='stylesheet' id='fontawesome-css' href='https://www.sansovi.com/wp-content/themes/sansovi/dependencies/fontawesome/css/all.min.css?ver=1.0.0' media='all' />
+<link rel='stylesheet' id='swiper-css' href='https://www.sansovi.com/wp-content/themes/sansovi/dependencies/swiper/css/swiper.min.css?ver=1.0.0' media='all' />
+<link rel='stylesheet' id='elegant-icons-css' href='https://www.sansovi.com/wp-content/themes/sansovi/dependencies/components-elegant-icons/css/elegant-icons.min.css?ver=1.0.0' media='all' />
+<link rel='stylesheet' id='feathericons-css' href='https://www.sansovi.com/wp-content/themes/sansovi/dependencies/feathericons/css/feather.css?ver=1.0.0' media='all' />
+<link rel='stylesheet' id='magnific-popup-css' href='https://www.sansovi.com/wp-content/themes/sansovi/dependencies/magnific-popup/css/magnific-popup.css?ver=1.0.0' media='all' />
+<link rel='stylesheet' id='app-css-css' href='https://www.sansovi.com/wp-content/themes/sansovi/assets/css/app.css?ver=1791547458' media='all' />
+<link rel='stylesheet' id='custom-css' href='https://www.sansovi.com/wp-content/themes/sansovi/assets/css/custom.css?ver=1791547458' media='all' />
+<link rel='stylesheet' id='gcc-fonts-css' href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&#038;display=swap' media='all' />
+<link rel='stylesheet' id='popup-maker-site-css' href='//www.sansovi.com/wp-content/uploads/pum/pum-site-styles.css?generated=1782209991&#038;ver=1.25.0' media='all' />
+<script id="jquery-core-js" src="https://www.sansovi.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"></script>
+<script id="jquery-migrate-js" src="https://www.sansovi.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1"></script>
+<link rel="https://api.w.org/" href="https://www.sansovi.com/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://www.sansovi.com/wp-json/wp/v2/pages/4562" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.sansovi.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 7.1.3" />
+<link rel='shortlink' href='https://www.sansovi.com/?p=4562' />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3CLQNNZGE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Q3CLQNNZGE');
+</script>
+
+
+<script>var chatbot_id=11655;!function(){var t,e,a=document,s="smatbot-chatbot";a.getElementById(s)||(t=a.createElement("script"),t.id=s,t.type="text/javascript",t.src="https://plugin.smatbot.com/smatbot_plugin.js.gz",e=a.getElementsByTagName("script")[0],e.parentNode.insertBefore(t,e))}();</script><script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/1.5.1/fingerprint2.min.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Sansovi",
+  "alternateName": "GCC setup Solutions provider in india",
+  "url": "https://sansovi.com/",
+  "logo": "https://sansovi.com/wp-content/uploads/2025/01/sansovi-Logo-1.png",
+  "sameAs": [
+    "https://www.facebook.com/sansovi.goodworks/",
+    "https://www.linkedin.com/company/sansovi-by-goodworks/",
+    "https://www.instagram.com/sansovi_goodworks/"
+  ]
+}
+</script>	
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/", 
+  "@type": "Product", 
+  "name": "Unified Platform Overview",
+  "image": "https://sansovi.com/wp-content/uploads/2025/01/sansovi-Logo-1.png",
+  "description": "From infrastructure and onboarding to tech delivery and compliance, Sansovi unifies the entire GCC lifecycle
+into a single platform, giving you speed, visibility, and peace of mind.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Sansovi by Goodworks"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "1"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/", 
+  "@type": "Product", 
+  "name": "Netskill LMS/LXP",
+  "image": "https://sansovi.com/wp-content/uploads/2025/01/sansovi-Logo-1.png",
+  "description": "NetSkill LMS by Sansovi is India’s most advanced AI-powered onboarding and talent intelligence platform, built to help Global Capability Centres (GCCs) in India onboard, train, and manage high-performing teams with confidence and speed.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Sansovi"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "1"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/", 
+  "@type": "Product", 
+  "name": "Kriyatix.ai",
+  "image": "https://sansovi.com/wp-content/uploads/2025/01/sansovi-Logo-1.png",
+  "description": "Accelerate your GCC’s transformation with Kriyatix.ai - Sansovi’s AI and low-code engine for smart automation, rapid
+tool development, and decision intelligence at scale.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Sansovi"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "1"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/", 
+  "@type": "Product", 
+  "name": "Compliance and Analytics",
+  "image": "https://sansovi.com/wp-content/uploads/2025/01/sansovi-Logo-1.png",
+  "description": "Ensure your Global Capability Centre in India stays compliant and future-ready with Sansovi.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Sansovi"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "1"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Global Capability Center as a Service",
+  "provider": {
+    "@type": "Organization",
+    "name": "Sansovi",
+    "url": "https://sansovi.com/offerings/gcc-as-a-service/",
+    "logo": "https://sansovi.com/wp-content/uploads/2025/01/sansovi-Logo-1.png",
+    "sameAs": [
+      "https://www.linkedin.com/company/sansovigcc-by-goodworks/",
+      "https://www.facebook.com/sansovi.goodworks/",
+      "https://www.instagram.com/sansovi_goodworks/"
+    ]
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "India"
+  },
+  "description": "Sansovi provides end-to-end Global Capability Center setup and management solutions, including infrastructure, talent acquisition, and operational excellence.",
+  "url": "https://sansovi.com/offerings/gcc-as-a-service/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "EOR & Legal Entity Setup",
+  "provider": {
+    "@type": "Organization",
+    "name": "Sansovi",
+    "url": "https://sansovi.com/offerings/gcc-eor-legal-entity-setup/",
+    "logo": "https://sansovi.com/wp-content/uploads/2025/01/sansovi-Logo-1.png",
+    "sameAs": [
+      "https://www.linkedin.com/company/sansovigcc-by-goodworks/",
+      "https://www.facebook.com/sansovi.goodworks/",
+      "https://www.instagram.com/sansovi_goodworks/"
+    ]
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "India"
+  },
+  "description": "Simplify Expansion with SansoviGCC EOR & Entity Setup Services in India.",
+  "url": "https://sansovi.com/offerings/gcc-eor-legal-entity-setup/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Workspace Solutions For GCCs",
+  "provider": {
+    "@type": "Organization",
+    "name": "Sansovi",
+    "url": "https://sansovi.com/offerings/gcc-workspace-office-solutions/",
+    "logo": "https://sansovi.com/wp-content/uploads/2025/01/sansovi-Logo-1.png",
+    "sameAs": [
+      "https://www.linkedin.com/company/sansovigcc-by-goodworks/",
+      "https://www.facebook.com/sansovi.goodworks/",
+	  "https://www.instagram.com/sansovi_goodworks/"
+    ]
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "India"
+  },
+  "description": "SansoviGCC delivers skilled talent and tailored workforce solutions to help you scale faster, smarter, and with confidence.",
+  "url": "https://sansovi.com/offerings/gcc-workspace-office-solutions/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "SansoviGCC Talent Solutions For GCCs",
+  "provider": {
+    "@type": "Organization",
+    "name": "Sansovi",
+    "url": "https://sansovi.com/offerings/gcc-talent-solutions/",
+    "logo": "https://sansovi.com/wp-content/uploads/2025/01/sansovi-Logo-1.png",
+    "sameAs": [
+      "https://www.linkedin.com/company/sansovigcc-by-goodworks/",
+      "https://www.facebook.com/sansovi.goodworks/",
+	  "https://www.instagram.com/sansovi_goodworks/"
+    ]
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "India"
+  },
+  "description": "Sansovi provides end-to-end Global Capability Center setup and management solutions, including infrastructure, talent acquisition, and operational excellence.",
+  "url": "https://sansovi.com/offerings/gcc-talent-solutions/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "GCC Technology Services",
+  "provider": {
+    "@type": "Organization",
+    "name": "Sansovi",
+    "url": "https://sansovi.com/offerings/gcc-technology-solutions/",
+    "logo": "https://sansovi.com/wp-content/uploads/2025/01/sansovi-Logo-1.png",
+    "sameAs": [
+      "https://www.linkedin.com/company/sansovigcc-by-goodworks/",
+      "https://www.facebook.com/sansovi.goodworks/",
+	  "https://www.instagram.com/sansovi_goodworks/"
+    ]
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "India"
+  },
+  "description": "SansoviGCC delivers scalable, end-to-end tech solutions to power innovation and efficiency across your Global Capability Center in India.",
+  "url": "https://sansovi.com/offerings/gcc-technology-solutions/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "GCC Advisory Services",
+  "provider": {
+    "@type": "Organization",
+    "name": "Sansovi",
+    "url": "https://sansovi.com/offerings/gcc-advisory-services/",
+    "logo": "https://sansovi.com/wp-content/uploads/2025/01/sansovi-Logo-1.png",
+    "sameAs": [
+      "https://www.linkedin.com/company/sansovigcc-by-goodworks/",
+      "https://www.facebook.com/sansovi.goodworks/",
+	  "https://www.instagram.com/sansovi_goodworks/"
+    ]
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "India"
+  },
+  "description": "Transforming Your GCC into a Strategic Powerhouse",
+  "url": "https://sansovi.com/offerings/gcc-advisory-services/"
+}
+</script>
+<link rel="icon" href="https://www.sansovi.com/wp-content/uploads/2025/01/cropped-Favicon-03-32x32.jpg" sizes="32x32" />
+<link rel="icon" href="https://www.sansovi.com/wp-content/uploads/2025/01/cropped-Favicon-03-192x192.jpg" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.sansovi.com/wp-content/uploads/2025/01/cropped-Favicon-03-180x180.jpg" />
+<meta name="msapplication-TileImage" content="https://www.sansovi.com/wp-content/uploads/2025/01/cropped-Favicon-03-270x270.jpg" />
+<style id="wp-custom-css">
+/*Blog single post code start  */
+/* Blog Content Spacing */
+.blog-single-content h1,
+.blog-single-content h2,
+.blog-single-content h3,
+.blog-single-content h4,
+.blog-single-content h5,
+.blog-single-content h6 {
+    margin-top: 40px;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.blog-single-content p {
+    margin-bottom: 18px;
+    line-height: 1.7;
+}
+
+.blog-single-content ul,
+.blog-single-content ol {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    padding-left: 25px;
+}
+
+.blog-single-content ul li,
+.blog-single-content ol li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* Space after headings when paragraph comes */
+.blog-single-content h1 + p,
+.blog-single-content h2 + p,
+.blog-single-content h3 + p,
+.blog-single-content h4 + p {
+    margin-top: 10px;
+}
+
+/*Blog single post code End */
+
+.banner h1 {
+  color: white !important;
+}
+
+/* Home Popup Form Css Start */
+.wpcf7 form .mc-input {
+  width: 100% !important;
+  padding: 14px 16px !important;
+  margin-bottom: 18px !important;
+  border: none !important; /* removed border */
+  font-size: 16px !important;
+  background: #fff !important;
+  transition: 0.25s ease-in-out !important;
+	border-radius:5px;
+}
+
+/* Focus effect */
+.wpcf7 form .mc-input:focus {
+  box-shadow: 0 0 10px rgba(0, 111, 255, 0.35) !important;
+  outline: none !important;
+}
+
+/* Submit Button (Gradient + No Border) */
+.wpcf7 form .mc-btn {
+  width: 100% !important;
+  font-size: 17px !important;
+  font-weight: 600 !important;
+  padding: 14px 24px !important;
+  border: none !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  color: #fff !important;
+  background: linear-gradient(90deg, #0064d9, #0045a6) !important; /* Blue gradient */
+  transition: 0.3s ease-in-out !important;
+}
+
+/* Hover effect (reverse gradient) */
+.wpcf7 form .mc-btn:hover {
+  background: linear-gradient(90deg, #0045a6, #0064d9) !important;
+}
+
+/* Phone intl input still safe */
+input[name="phone"] {
+  background: #fff !important;
+  font-size: 16px !important;
+}
+
+.intl-tel-input .flag-container {
+    position: unset;
+    padding-right: 0;
+    height: 48px;
+}
+.pum-theme-1805 .pum-title, .pum-theme-lightbox .pum-title {
+    color: #000000;
+    text-align: center;
+    text-shadow: 0px 0px 0px rgba(2, 2, 2, 0.23);
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 36px;
+}
+/* Home Popup Form Css END */
+
+/* Desktop only */
+@media (min-width: 1024px) {
+    .sub-menu {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+}
+/*Case study Code Start  */
+.page-header-content{
+padding-top:80px;
+}
+
+.page-header-content{
+padding-top:80px;
+}
+/*Case study Code End */
+
+/*Header Banner Css Start */
+.banner--three{
+	height:650px; !important;
+}
+@media (max-width: 991px) {
+    .banner--three {
+        padding: 50px 0 40px;
+			height:700px !important;
+    }
+}
+/*Header Banner Css End */
+
+.page-header{
+	height:350px !important;
+}
+
+.gscf7-frontend-gdpr-notice {
+    display: none !important;
+}
+
+</style>
+</head>
+
+<body class="wp-singular page-template-default page page-id-4562 page-child parent-pageid-4359 wp-theme-sansovi">
+	<div id="main_content">
+
+<header id="masthead" class="site-header header-2 header-width no-transition" data-header-fixed="true" data-mobile-menu-resolution="992">
+
+<!-- ===== CUSTOM TOP BAR ===== -->
+<div class="custom-top-bar">
+	<div class="container">
+		<div class="topbar-inner">
+
+			<!-- LEFT : BACK TO SANSOVI.COM -->
+			<div class="topbar-left">
+				<a href="https://www.sansovi.com/" class="topbar-back-link">
+					<span class="back-arrow">&#8592;</span>
+					Back to sansovi.com
+				</a>
+			</div>
+
+			<!-- CENTER : TEXT -->
+			<div class="topbar-center">
+				<p>
+					Top GCC Provider in India – AIM Research
+
+					<a href="#" class="read-more-link">
+						Read more <span>→</span>
+					</a>
+				</p>
+			</div>
+
+			<!-- RIGHT : PHONE + EMAIL (icon + text) -->
+			<div class="topbar-right">
+				<ul class="topbar-contact-icons">
+
+										<li>
+						<a href="tel:+91 9863077000 (India)">
+							<i class="fa-solid fa-phone"></i>
+							<span>+91 9863077000 (India)</span>
+						</a>
+					</li>
+					
+										<li>
+						<a href="mailto:contact@sansovi.com">
+							<i class="fa-solid fa-envelope"></i>
+							<span>contact@sansovi.com</span>
+						</a>
+					</li>
+					
+				</ul>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- ===== END CUSTOM TOP BAR ===== -->
+
+
+	<!-- ===== MAIN HEADER ===== -->
+	<div class="container">
+		<div class="gcc-header-inner">
+
+			<!-- LOGO : white by default, purple when scrolled -->
+			<div class="gcc-site-logo">
+				<a href="https://www.sansovi.com/gcc/" rel="home">
+					<img src="https://www.sansovi.com/wp-content/uploads/2026/08/Logo-Sansovi-GCC-Index-White.svg" alt="Sansovi GCC" class="gcc-logo-main">
+					<img src="https://www.sansovi.com/wp-content/uploads/2026/08/Logo-Sansovi-GCC-Index-Purple.svg" alt="Sansovi GCC" class="gcc-logo-sticky">
+				</a>
+			</div>
+
+			<!-- DESKTOP NAV (WordPress menu — unchanged) -->
+			<nav class="gcc-nav-wrap" id="gcc-main-nav">
+				<ul id="menu-gcc" class="menu navbar-nav"><li id="menu-item-4407" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4407"><a href="https://www.sansovi.com/gcc/directory/">GCC Directory</a></li>
+<li id="menu-item-4408" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4408"><a href="https://www.sansovi.com/gcc/verticals/">Verticals</a></li>
+<li id="menu-item-4708" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4708"><a href="https://www.sansovi.com/gcc/rankings/">Rankings</a></li>
+<li id="menu-item-4709" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4709"><a href="https://www.sansovi.com/gcc/compare/">Compare</a></li>
+</ul>			</nav>
+
+			<!-- BUTTONS AREA: SEARCH + CLAIM (desktop) -->
+			<div class="gcc-nav-buttons">
+
+				<!-- SEARCH (icon only + dropdown) -->
+				<div class="gcc-search" id="gcc-search">
+					<button class="gcc-search-trigger" id="gcc-search-trigger" aria-label="Search GCCs" aria-expanded="false">
+						<i class="fa-solid fa-magnifying-glass"></i>
+					</button>
+
+					<div class="gcc-search-panel" id="gcc-search-panel">
+						<div class="gcc-search-inputwrap">
+							<i class="fa-solid fa-magnifying-glass"></i>
+							<input type="text" class="gcc-search-input" id="gcc-search-input" placeholder="Search GCC name…" autocomplete="off">
+							<button class="gcc-search-clear" id="gcc-search-clear" aria-label="Clear"><i class="fa-solid fa-xmark"></i></button>
+						</div>
+						<div class="gcc-search-results is-empty" id="gcc-search-results">
+							<div class="gcc-search-hint">Start typing a GCC name to search…</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- CLAIM YOUR GCC (kept) -->
+				<a href="https://www.sansovi.com/gcc/contact/" class="gcc-btn-outline">Talk to Our GCC Expert</a>
+			</div>
+
+			<!-- MOBILE SEARCH ICON -->
+			<button class="gcc-mobile-search-btn" id="gcc-mobile-search-btn" aria-label="Open search">
+				<i class="fa-solid fa-magnifying-glass"></i>
+			</button>
+
+			<!-- HAMBURGER (mobile) -->
+			<button class="gcc-hamburger" id="gcc-hamburger" aria-label="Open menu" aria-expanded="false">
+				<span class="gcc-bar"></span>
+				<span class="gcc-bar"></span>
+				<span class="gcc-bar"></span>
+			</button>
+
+		</div>
+	</div>
+	<!-- ===== END MAIN HEADER ===== -->
+
+</header>
+
+
+<!-- ========================================================
+     MOBILE DRAWER — slides from LEFT to RIGHT
+     ======================================================== -->
+<div class="gcc-mobile-drawer" id="gcc-mobile-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+	<div class="gcc-drawer-backdrop" id="gcc-drawer-backdrop"></div>
+
+	<div class="gcc-drawer-panel">
+
+		<!-- Purple top bar inside drawer — white logo for visibility -->
+		<div class="gcc-drawer-head">
+			<a href="https://www.sansovi.com/gcc/">
+				<img src="https://www.sansovi.com/wp-content/uploads/2026/07/Logo-Sansovi-White.svg" alt="Sansovi GCC">
+			</a>
+			<button class="gcc-drawer-close" id="gcc-drawer-close" aria-label="Close menu">✕</button>
+		</div>
+
+		<!-- Nav links -->
+		<nav class="gcc-drawer-nav">
+			<ul id="menu-gcc-1" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4407"><a href="https://www.sansovi.com/gcc/directory/">GCC Directory</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4408"><a href="https://www.sansovi.com/gcc/verticals/">Verticals</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4708"><a href="https://www.sansovi.com/gcc/rankings/">Rankings</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4709"><a href="https://www.sansovi.com/gcc/compare/">Compare</a></li>
+</ul>		</nav>
+
+		<!-- button at bottom (Claim only) -->
+		<div class="gcc-drawer-buttons">
+			<a href="https://www.sansovi.com/gcc/contact/" class="gcc-btn-outline">Talk to Our GCC Expert</a>
+		</div>
+
+	</div>
+</div>
+<!-- ===== END MOBILE DRAWER ===== -->
+
+
+<!-- ========================================================
+     MOBILE FULL-SCREEN SEARCH OVERLAY
+     ======================================================== -->
+<div class="gcc-msearch-overlay" id="gcc-msearch-overlay" role="dialog" aria-modal="true" aria-label="Search GCCs">
+	<div class="gcc-msearch-top">
+		<button class="gcc-msearch-back" id="gcc-msearch-back" aria-label="Close search">
+			<i class="fa-solid fa-arrow-left"></i>
+		</button>
+		<div class="gcc-msearch-inputwrap">
+			<i class="fa-solid fa-magnifying-glass"></i>
+			<input type="text" class="gcc-msearch-input" id="gcc-msearch-input" placeholder="Search GCC name…" autocomplete="off">
+		</div>
+	</div>
+	<div class="gcc-msearch-results" id="gcc-msearch-results">
+		<div class="gcc-search-hint">Start typing a GCC name to search…</div>
+	</div>
+</div>
+<!-- ===== END MOBILE SEARCH OVERLAY ===== -->
+
+
+<script>
+(function () {
+	var header    = document.getElementById('masthead');
+	var hamburger = document.getElementById('gcc-hamburger');
+	var drawer    = document.getElementById('gcc-mobile-drawer');
+	var backdrop  = document.getElementById('gcc-drawer-backdrop');
+	var closeBtn  = document.getElementById('gcc-drawer-close');
+
+	/* Purple → white on scroll */
+	window.addEventListener('scroll', function () {
+		header.classList.toggle('header-scrolled', window.scrollY > 10);
+	}, { passive: true });
+
+	function openDrawer() {
+		drawer.classList.add('gcc-drawer-open');
+		hamburger.classList.add('gcc-is-open');
+		hamburger.setAttribute('aria-expanded', 'true');
+		document.body.style.overflow = 'hidden';
+	}
+	function closeDrawer() {
+		drawer.classList.remove('gcc-drawer-open');
+		hamburger.classList.remove('gcc-is-open');
+		hamburger.setAttribute('aria-expanded', 'false');
+		document.body.style.overflow = '';
+	}
+
+	hamburger.addEventListener('click', function () {
+		drawer.classList.contains('gcc-drawer-open') ? closeDrawer() : openDrawer();
+	});
+	closeBtn.addEventListener('click', closeDrawer);
+	backdrop.addEventListener('click', closeDrawer);
+	document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeDrawer(); });
+	window.addEventListener('resize', function () { if (window.innerWidth > 992) closeDrawer(); });
+
+
+	/* =====================================================
+	   GCC SEARCH (desktop dropdown + mobile overlay)
+	   Uses the SAME API as the directory page.
+	   ===================================================== */
+	var API_BASE      = 'https://sansovi-gcc-platform-492263949881.asia-south1.run.app/api/v1';
+	var DIRECTORY_URL = '/gcc/directory/';   // detail page base -> /gcc/directory/{slug}
+
+	var COLORS = ['#0F2342','#1A3C6B','#2C5F8A','#5f15cd','#1DB88A','#E87B35','#3C3489','#0D7A5F'];
+	function logoColor(s) {
+		var h = 0; s = s || '';
+		for (var i = 0; i < s.length; i++) h = s.charCodeAt(i) + ((h << 5) - h);
+		return COLORS[Math.abs(h) % COLORS.length];
+	}
+	function escapeHtml(str) {
+		return (str || '').replace(/[&<>"']/g, function (c) {
+			return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+		});
+	}
+
+	/* Build a single result row */
+	function resultRow(item) {
+		var name   = item.name || 'Unknown';
+		var parent = item.parentCompanyName || '';
+		var slug   = item.slug || '';
+		var init   = name.substring(0, 2).toUpperCase();
+		var bg     = logoColor(name);
+
+		return '<a class="gcc-search-result" href="' + DIRECTORY_URL + encodeURIComponent(slug) + '">'
+			+ '<span class="gcc-sr-logo" style="background:' + bg + '">' + escapeHtml(init) + '</span>'
+			+ '<span class="gcc-sr-info">'
+			+   '<span class="gcc-sr-name">' + escapeHtml(name) + '</span>'
+			+   (parent ? '<span class="gcc-sr-parent">' + escapeHtml(parent) + '</span>' : '')
+			+ '</span>'
+			+ '<i class="fa-solid fa-chevron-right gcc-sr-arrow"></i>'
+			+ '</a>';
+	}
+
+	/* Perform search against API, render into given container */
+	function doSearch(query, container) {
+		query = (query || '').trim();
+
+		if (!query) {
+			container.classList.add('is-empty');
+			container.innerHTML = '<div class="gcc-search-hint">Start typing a GCC name to search…</div>';
+			return;
+		}
+
+		container.classList.add('is-empty');
+		container.innerHTML = '<div class="gcc-search-state"><div class="gcc-spinner"></div>Searching…</div>';
+
+		fetch(API_BASE + '/gccs?limit=8&q=' + encodeURIComponent(query))
+			.then(function (r) {
+				if (!r.ok) throw new Error('HTTP ' + r.status);
+				return r.json();
+			})
+			.then(function (res) {
+				var data = res.data || [];
+				if (!data.length) {
+					container.classList.add('is-empty');
+					container.innerHTML = '<div class="gcc-search-state">No GCCs found for “' + escapeHtml(query) + '”.</div>';
+					return;
+				}
+				var html = '';
+				for (var i = 0; i < data.length; i++) html += resultRow(data[i]);
+				container.classList.remove('is-empty');   /* fixed height + scroll */
+				container.innerHTML = html;
+			})
+			.catch(function (err) {
+				console.error('GCC search error:', err);
+				container.classList.add('is-empty');
+				container.innerHTML = '<div class="gcc-search-state">Something went wrong. Please try again.</div>';
+			});
+	}
+
+	/* Debounce helper */
+	function debounce(fn, wait) {
+		var t;
+		return function () {
+			var args = arguments, ctx = this;
+			clearTimeout(t);
+			t = setTimeout(function () { fn.apply(ctx, args); }, wait);
+		};
+	}
+
+	/* ---------- DESKTOP DROPDOWN ---------- */
+	var searchWrap    = document.getElementById('gcc-search');
+	var searchTrigger = document.getElementById('gcc-search-trigger');
+	var searchPanel   = document.getElementById('gcc-search-panel');
+	var searchInput   = document.getElementById('gcc-search-input');
+	var searchResults = document.getElementById('gcc-search-results');
+	var searchClear   = document.getElementById('gcc-search-clear');
+
+	function openSearch() {
+		searchWrap.classList.add('gcc-search-open');
+		searchTrigger.setAttribute('aria-expanded', 'true');
+		setTimeout(function () { searchInput.focus(); }, 80);
+	}
+	function closeSearch() {
+		searchWrap.classList.remove('gcc-search-open');
+		searchTrigger.setAttribute('aria-expanded', 'false');
+	}
+
+	searchTrigger.addEventListener('click', function (e) {
+		e.stopPropagation();
+		searchWrap.classList.contains('gcc-search-open') ? closeSearch() : openSearch();
+	});
+
+	var debouncedDesktop = debounce(function (v) {
+		doSearch(v, searchResults);
+	}, 400);
+
+	searchInput.addEventListener('input', function () {
+		var v = this.value;
+		searchClear.classList.toggle('show', v.length > 0);
+		debouncedDesktop(v);
+	});
+
+	searchClear.addEventListener('click', function () {
+		searchInput.value = '';
+		searchClear.classList.remove('show');
+		searchResults.classList.add('is-empty');
+		searchResults.innerHTML = '<div class="gcc-search-hint">Start typing a GCC name to search…</div>';
+		searchInput.focus();
+	});
+
+	/* Close when clicking outside */
+	document.addEventListener('click', function (e) {
+		if (!searchWrap.contains(e.target)) closeSearch();
+	});
+	document.addEventListener('keydown', function (e) {
+		if (e.key === 'Escape') closeSearch();
+	});
+
+	/* ---------- MOBILE FULL-SCREEN SEARCH ---------- */
+	var mSearchBtn     = document.getElementById('gcc-mobile-search-btn');
+	var mSearchOverlay = document.getElementById('gcc-msearch-overlay');
+	var mSearchBack    = document.getElementById('gcc-msearch-back');
+	var mSearchInput   = document.getElementById('gcc-msearch-input');
+	var mSearchResults = document.getElementById('gcc-msearch-results');
+
+	function openMobileSearch() {
+		mSearchOverlay.classList.add('open');
+		document.body.style.overflow = 'hidden';
+		setTimeout(function () { mSearchInput.focus(); }, 80);
+	}
+	function closeMobileSearch() {
+		mSearchOverlay.classList.remove('open');
+		document.body.style.overflow = '';
+	}
+
+	mSearchBtn.addEventListener('click', openMobileSearch);
+	mSearchBack.addEventListener('click', closeMobileSearch);
+	document.addEventListener('keydown', function (e) {
+		if (e.key === 'Escape') closeMobileSearch();
+	});
+
+	var debouncedMobile = debounce(function (v) {
+		doSearch(v, mSearchResults);
+	}, 400);
+
+	mSearchInput.addEventListener('input', function () {
+		debouncedMobile(this.value);
+	});
+})();
+</script><style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter', sans-serif;background:#F7F5F0;color:#1A1A18;overflow-x:hidden}
+:root{
+  --navy:#0F2342;--navy-mid:#1A3C6B;
+  --teal:#0D7A5F;--teal-bright:#1DB88A;--teal-pale:#D6F0E8;
+  --amber:#C4621A;--amber-pale:#FBF0E6;
+  --cream:#F7F5F0;--cream-dark:#EDE9E0;
+  --ink:#1A1A18;--ink-mid:#3D3D3A;--ink-light:#6B6B66;
+  --border:#E2DDD6;--border-strong:#C8C2BA;
+  --err:#D14343;
+  --ff-display:'Inter', sans-serif;
+  --ff-body:'Inter', sans-serif;
+  --ff-mono:'DM Mono',monospace
+}
+
+/* ══════════════════════════════════
+   PAGE HEADER
+══════════════════════════════════ */
+/* PAGE HEADER */
+.page-header{
+    background:var(--navy);
+    padding:96px 0 48px;
+    position:relative;
+    overflow:hidden;
+    height:340px;
+    display:flex;
+    align-items:center;
+}
+
+/* GRID */
+.page-header::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:48px 48px;
+}
+
+/* GLOW */
+.ph-glow{
+    position:absolute;
+    width:400px;
+    height:400px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(196,98,26,.15) 0%,transparent 70%);
+    top:-150px;
+    right:-80px;
+    pointer-events:none;
+}
+
+.ph-glow2{
+    position:absolute;
+    width:300px;
+    height:300px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(29,184,138,.12) 0%,transparent 70%);
+    bottom:-100px;
+    left:10%;
+    pointer-events:none;
+}
+
+/* CONTENT WRAPPER */
+.ph-inner{
+    width:100%;
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 24px;
+    position:relative;
+    z-index:1;
+    text-align:left;
+}
+
+/* BREADCRUMB */
+.breadcrumb{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--ff-mono);
+    font-size:11px;
+    color:rgba(255,255,255,.35);
+    margin-bottom:20px;
+    flex-wrap:wrap;
+}
+
+.breadcrumb a{
+    color:rgba(255,255,255,.35);
+    text-decoration:none;
+}
+
+.breadcrumb a:hover{
+    color:rgba(255,255,255,.65);
+}
+
+/* TITLE */
+.ph-title{
+    font-family:var(--ff-display);
+    font-size:clamp(22px,4vw,54px);
+    font-weight:700;
+    color:white;
+    letter-spacing:-1.5px;
+    margin-bottom:10px;
+    line-height:1.1;
+}
+
+/* SUBTITLE */
+.ph-sub{
+    font-size:14px;
+    color:rgba(255,255,255,.55);
+    max-width:700px;
+    line-height:1.65;
+    margin-bottom:20px;
+}
+
+/* META */
+.ph-meta{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.ph-meta-item{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:11px;
+    color:rgba(255,255,255,.5);
+    font-family:var(--ff-mono);
+}
+
+.ph-meta-dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--teal-bright);
+    flex-shrink:0;
+}
+
+/* ══════════════════════════════════
+   TOOL BODY — desktop 2-col grid
+══════════════════════════════════ */
+.tool-body{
+  max-width:1200px;margin:0 auto;
+  padding:32px 48px 80px;
+  display:grid;
+  grid-template-columns:300px 1fr;
+  gap:28px;
+  align-items:flex-start
+}
+
+/* ══════════════════════════════════
+   FILTERS SIDEBAR
+══════════════════════════════════ */
+/* Desktop: sticky sidebar */
+.filters-col{
+  background:white;
+  border:1.5px solid var(--border-strong);
+  border-radius:16px;
+  overflow:hidden;
+  min-width:0;
+  /* sticky only on desktop — overridden to static on mobile */
+  position:sticky;
+  top:80px
+}
+
+/* Mobile accordion toggle — HIDDEN on desktop */
+.mobile-filter-toggle{
+  display:none;
+  width:100%;font-family:var(--ff-body);font-size:14px;font-weight:600;
+  color:var(--navy);background:white;
+  border:none;border-bottom:0 solid transparent;
+  padding:14px 16px;cursor:pointer;
+  align-items:center;justify-content:space-between;text-align:left
+}
+.mft-right{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-light);font-weight:400}
+.mft-arrow{width:20px;height:20px;border-radius:50%;background:var(--cream-dark);display:flex;align-items:center;justify-content:center;font-size:10px;transition:transform .25s}
+.mft-arrow.open{transform:rotate(180deg)}
+
+/* Filter sections */
+.filter-section{padding:16px 18px;border-bottom:1px solid var(--border)}
+.filter-section:last-child{border-bottom:none}
+.filter-title{font-size:10px;font-weight:600;color:var(--ink-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px;display:flex;align-items:center;justify-content:space-between}
+.filter-title .reset{font-size:10px;color:var(--teal);cursor:pointer;font-weight:500;text-transform:none;letter-spacing:0}
+.filter-select{
+  width:100%;font-family:var(--ff-body);font-size:13px;
+  padding:9px 30px 9px 12px;
+  border:1.5px solid var(--border);border-radius:9px;
+  outline:none;background:var(--cream);color:var(--ink);
+  cursor:pointer;transition:border-color .2s;margin-bottom:8px;
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 4.5l3 3 3-3' stroke='%236B6B66' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;background-size:12px
+}
+.filter-select:focus{border-color:var(--navy);background-color:white}
+.filter-select:last-child{margin-bottom:0}
+.exp-slider-wrap{padding-top:2px}
+.exp-label-row{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-light);margin-bottom:6px}
+.exp-label-val{font-weight:600;color:var(--navy)}
+.slider{width:100%;accent-color:var(--teal);cursor:pointer}
+.exp-ticks{display:flex;justify-content:space-between;font-size:9px;color:var(--ink-light);margin-top:4px}
+.compare-your-salary{background:var(--cream);padding:16px 18px}
+.cys-label{font-size:10px;font-weight:600;color:var(--ink-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.cys-wrap{position:relative}
+.cys-prefix{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--ink-light);font-family:var(--ff-mono)}
+.cys-input{width:100%;font-family:var(--ff-body);font-size:13px;padding:9px 12px 9px 28px;border:1.5px solid var(--border);border-radius:9px;outline:none;background:white;color:var(--ink);transition:border-color .2s}
+.cys-input:focus{border-color:var(--teal)}
+.cys-input.invalid{border-color:var(--err);background:#FDF5F5}
+.cys-hint{font-size:11px;color:var(--ink-light);margin-top:5px;line-height:1.4}
+.cys-error{font-size:11px;color:var(--err);margin-top:5px;line-height:1.4;display:none}
+.cys-error.show{display:block}
+.run-btn{width:100%;margin-top:10px;font-family:var(--ff-body);font-size:13px;font-weight:600;color:white;background:var(--navy);border:none;border-radius:9px;padding:11px;cursor:pointer;transition:background .2s}
+.run-btn:hover{background:var(--navy-mid)}
+
+/* ══════════════════════════════════
+   RESULTS COLUMN
+══════════════════════════════════ */
+.results-col{display:flex;flex-direction:column;gap:20px;min-width:0}
+
+/* MAIN RESULT CARD */
+.result-main{background:white;border:1.5px solid var(--border-strong);border-radius:16px;overflow:hidden}
+.rm-header{background:var(--navy);padding:20px 22px;position:relative;overflow:hidden}
+.rm-header::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:24px 24px}
+.rm-role{font-family:var(--ff-display);font-size:clamp(15px,2.5vw,22px);font-weight:700;color:white;letter-spacing:-.3px;margin-bottom:8px;position:relative;z-index:1;word-break:break-word}
+.rm-context{font-size:13px;color:rgba(255,255,255,.55);position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:6px}
+.rm-ctx-chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:4px;padding:2px 8px;font-size:11px}
+.rm-body{padding:18px 20px}
+
+/* PERCENTILE BAR */
+.range-visual{margin-bottom:24px}
+.rv-label{font-size:10px;font-weight:600;color:var(--ink-light);margin-bottom:12px;text-transform:uppercase;letter-spacing:.06em}
+.rv-track{position:relative;height:44px;display:flex;align-items:center}
+.rv-bar-bg{position:absolute;left:0;right:0;height:12px;background:var(--cream-dark);border-radius:6px}
+.rv-bar-range{position:absolute;height:12px;background:linear-gradient(90deg,var(--navy-mid),var(--navy));border-radius:6px}
+.rv-bar-median{position:absolute;width:4px;height:24px;background:var(--teal-bright);border-radius:2px;top:50%;transform:translateY(-50%) translateX(-50%)}
+.rv-your{position:absolute;width:3px;height:32px;background:var(--amber);border-radius:2px;top:50%;transform:translateY(-50%) translateX(-50%)}
+.rv-labels{display:flex;justify-content:space-between;margin-top:14px;gap:4px}
+.rv-label-item{text-align:center;flex:1;min-width:0}
+.rv-label-val{font-family:var(--ff-display);font-size:clamp(13px,2vw,18px);font-weight:700;color:var(--navy)}
+.rv-label-pct{font-size:9px;color:var(--ink-light);margin-top:2px;text-transform:uppercase;letter-spacing:.05em}
+.rv-legend{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap}
+.rv-leg-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink-mid)}
+.rv-leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+
+/* KPI GRID */
+.salary-kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}
+.skpi{background:var(--cream);border-radius:10px;padding:12px;min-width:0}
+.skpi-val{font-family:var(--ff-display);font-size:clamp(16px,2.5vw,24px);font-weight:700;color:var(--navy);letter-spacing:-.5px;line-height:1}
+.skpi-lbl{font-size:10px;color:var(--ink-light);margin-top:4px}
+.skpi-sub{font-size:10px;color:var(--ink-mid);margin-top:4px}
+
+/* YOUR SALARY RESULT */
+.your-salary-result{background:var(--amber-pale);border:1px solid rgba(196,98,26,.2);border-radius:12px;padding:14px 16px;margin-bottom:20px;display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.ysr-icon{width:36px;height:36px;border-radius:9px;background:var(--amber);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px}
+.ysr-body{flex:1;min-width:160px}
+.ysr-label{font-size:11px;color:var(--amber);font-weight:600;margin-bottom:3px}
+.ysr-text{font-size:12px;color:var(--ink-mid);line-height:1.5}
+.ysr-pct{font-family:var(--ff-display);font-size:20px;font-weight:700;color:var(--amber);white-space:nowrap;flex-shrink:0}
+
+/* BREAKDOWN TABLE */
+.breakdown-title{font-size:12px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.breakdown-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1.5px solid var(--border-strong);border-radius:10px;max-width:100%}
+.breakdown-table{width:100%;border-collapse:collapse;font-size:13px;min-width:380px}
+.breakdown-table th{font-size:10px;font-weight:600;color:var(--ink-light);text-transform:uppercase;letter-spacing:.07em;padding:8px 12px;border-bottom:1.5px solid var(--border-strong);text-align:left;background:var(--cream);white-space:nowrap}
+.breakdown-table td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--ink-mid);vertical-align:middle}
+.breakdown-table tr:last-child td{border-bottom:none}
+.breakdown-table tr:hover td{background:var(--cream)}
+.td-range{font-family:var(--ff-mono);font-size:12px;color:var(--navy);font-weight:600;white-space:nowrap}
+.td-bar{display:flex;align-items:center;gap:5px}
+.td-bar-track{width:44px;height:5px;background:var(--cream-dark);border-radius:3px;overflow:hidden;flex-shrink:0}
+.td-bar-fill{height:100%;border-radius:3px;background:var(--navy)}
+.premium-badge{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;background:var(--amber-pale);color:var(--amber);white-space:nowrap}
+
+/* CITY COMPARISON */
+.city-comp{background:white;border:1.5px solid var(--border-strong);border-radius:16px;padding:20px}
+.city-comp-title{font-family:var(--ff-display);font-size:17px;font-weight:600;color:var(--navy);margin-bottom:14px;letter-spacing:-.2px}
+.city-comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cc-city{background:var(--cream);border-radius:10px;padding:12px;text-align:center;transition:all .2s;cursor:pointer;border:1.5px solid transparent;min-width:0}
+.cc-city:hover{border-color:var(--teal);background:white}
+.cc-city.current{border-color:var(--teal);background:var(--teal-pale)}
+.cc-name{font-size:11px;font-weight:600;color:var(--navy);margin-bottom:5px}
+.cc-range{font-family:var(--ff-mono);font-size:10px;font-weight:600;color:var(--navy);line-height:1}
+.cc-median{font-size:9px;color:var(--ink-light);margin-top:3px}
+.cc-index{font-size:9px;font-weight:600;margin-top:3px}
+.cc-index.high{color:var(--teal)}
+.cc-index.base{color:var(--ink-light)}
+.cc-index.low{color:var(--amber)}
+
+/* GATED CARD */
+.gated-card{background:white;border:1.5px solid var(--border-strong);border-radius:16px;padding:28px 22px;text-align:center;position:relative;overflow:hidden}
+.gc-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(247,245,240,0),rgba(13,122,95,.04));pointer-events:none}
+.gc-icon{font-size:34px;margin-bottom:12px}
+.gc-title{font-family:var(--ff-display);font-size:clamp(17px,3vw,22px);font-weight:700;color:var(--navy);margin-bottom:8px;letter-spacing:-.3px}
+.gc-sub{font-size:13px;color:var(--ink-mid);line-height:1.65;max-width:360px;margin:0 auto 18px}
+.gc-features{display:flex;flex-direction:column;gap:7px;margin-bottom:22px;text-align:left;max-width:300px;margin-left:auto;margin-right:auto}
+.gc-feat{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--ink-mid)}
+.gc-feat svg{width:15px;height:15px;stroke:var(--teal-bright);fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0;margin-top:1px}
+.gc-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--ff-body);font-size:13px;font-weight:600;color:white;background:var(--teal);border:none;border-radius:10px;padding:12px 22px;cursor:pointer;text-decoration:none;transition:all .2s;box-shadow:0 4px 14px rgba(13,122,95,.25)}
+.gc-btn:hover{background:var(--teal-bright)}
+.gc-already{margin-top:10px;font-size:12px;color:var(--ink-light)}
+.gc-already a{color:var(--teal);text-decoration:none}
+
+/* DATA NOTE */
+.data-note{background:var(--cream);border:1px solid var(--border);border-radius:12px;padding:14px 16px;font-size:12px;color:var(--ink-light);line-height:1.6;display:flex;gap:10px;align-items:flex-start}
+.dn-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+
+/* ══════════════════════════════════
+   TABLET — 960px
+══════════════════════════════════ */
+@media(max-width:960px){
+  .tool-body{
+    grid-template-columns:260px 1fr;
+    padding:24px 28px 60px;
+    gap:20px
+  }
+}
+
+/* ══════════════════════════════════
+   MOBILE — 768px and below
+   Single column, filters collapsible
+══════════════════════════════════ */
+@media(max-width:768px){
+
+  /* Header — let it grow to fit content instead of clipping at 340px */
+  .page-header{padding:76px 16px 28px;height:auto}
+  .ph-inner{padding:0}
+  .ph-sub{font-size:13px}
+  .ph-meta{gap:8px}
+  .ph-meta-item{font-size:10px}
+
+  /* ── CRITICAL LAYOUT FIX ──
+     Force single column and remove sticky */
+  .tool-body{
+    grid-template-columns:1fr !important;
+    padding:14px 14px 52px !important;
+    gap:14px !important
+  }
+
+  /* Grid items must be allowed to shrink below content width */
+  .filters-col,.results-col{min-width:0 !important}
+
+  /* Sidebar: remove sticky, full width, no overflow clip so toggle works */
+  .filters-col{
+    position:static !important;
+    top:auto !important;
+    width:100% !important;
+    border-radius:12px;
+    overflow:visible
+  }
+
+  /* Show the mobile toggle button */
+  .mobile-filter-toggle{
+    display:flex !important;
+    border-bottom:1.5px solid var(--border)
+  }
+
+  /* Hide filter sections by default on mobile — JS will toggle .open */
+  .filters-inner{display:none !important}
+  .filters-inner.is-open{display:block !important}
+
+  /* Results */
+  .rm-body{padding:14px}
+  .rm-header{padding:14px 16px}
+
+  /* KPIs — keep 3 col but compact */
+  .salary-kpi-grid{gap:6px}
+  .skpi{padding:10px 8px}
+  .skpi-val{font-size:16px}
+  .skpi-lbl{font-size:9px}
+  .skpi-sub{display:none}
+
+  /* Percentile labels */
+  .rv-labels{gap:2px}
+  .rv-label-val{font-size:13px}
+  .rv-label-pct{font-size:8px}
+
+  /* City grid: 2 col */
+  .city-comp{padding:14px}
+  .city-comp-grid{grid-template-columns:repeat(2,1fr);gap:7px}
+
+  /* Gated */
+  .gated-card{padding:22px 14px}
+  .gc-features{max-width:100%}
+  .gc-btn{width:100%}
+
+  /* Data note */
+  .data-note{flex-direction:column;gap:6px}
+}
+
+/* ══════════════════════════════════
+   VERY SMALL — 420px
+══════════════════════════════════ */
+@media(max-width:420px){
+  .page-header{padding:68px 12px 22px}
+  .tool-body{padding:10px 10px 44px !important;gap:10px !important}
+  .skpi{padding:9px 7px}
+  .skpi-val{font-size:14px}
+  .rv-label-val{font-size:12px}
+  .city-comp-grid{gap:6px}
+  .filter-select{font-size:12px;padding:8px 28px 8px 10px}
+  .gc-sub{font-size:12px}
+  .gc-btn{font-size:12px;padding:11px 14px}
+}
+</style>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="ph-glow"></div>
+  <div class="ph-glow2"></div>
+  <div class="ph-inner">
+    <div class="breadcrumb">
+      <a href="https://www.sansovi.com/gcc">GCC</a><span>/</span>
+      <a href="/gcc/intelligence">Intelligence</a><span>/</span>
+      <span style="color:rgba(255,255,255,.55)">Salary Benchmark</span>
+    </div>
+    <h1 class="ph-title">GCC Salary Benchmark Tool</h1>
+    <p class="ph-sub">Median, P25, and P75 compensation ranges for 80+ roles across 6 cities, 12 verticals, and 4 experience bands — sourced from job postings, GCC submissions, and anonymised survey data.</p>
+    <div class="ph-meta">
+      <div class="ph-meta-item"><div class="ph-meta-dot"></div>80+ roles</div>
+      <div class="ph-meta-item"><div class="ph-meta-dot"></div>6 cities</div>
+      <div class="ph-meta-item"><div class="ph-meta-dot"></div>12 verticals</div>
+      <div class="ph-meta-item"><div class="ph-meta-dot"></div>Q1 2026</div>
+      <div class="ph-meta-item"><div class="ph-meta-dot"></div>14,200+ data points</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOL BODY -->
+<div class="tool-body">
+
+  <!-- ══════════════════════════════════
+       FILTERS SIDEBAR
+  ══════════════════════════════════ -->
+  <aside class="filters-col" id="filters-col">
+
+    <!-- Mobile toggle — hidden on desktop via CSS -->
+    <button class="mobile-filter-toggle" id="filter-toggle" onclick="toggleFilters()" aria-expanded="false">
+      <span>⚙️&nbsp; Filters &amp; Options</span>
+      <span class="mft-right">
+        <span id="mft-label">Show</span>
+        <span class="mft-arrow" id="mft-arrow">▾</span>
+      </span>
+    </button>
+
+    <!-- All filter content — shown on desktop, toggled on mobile -->
+    <div class="filters-inner" id="filters-inner">
+
+      <div class="filter-section">
+        <div class="filter-title">
+          Role / Function
+          <span class="reset" onclick="resetFilters()">Reset all</span>
+        </div>
+        <select class="filter-select" id="f-role" onchange="updateBenchmark()">
+          <option value="data-engineer">Data Engineer</option>
+          <option value="ml-engineer">ML / AI Engineer</option>
+          <option value="swe">Software Engineer</option>
+          <option value="cloud-devops">Cloud / DevOps Engineer</option>
+          <option value="risk-analyst">Risk Analyst</option>
+          <option value="product-manager">Product Manager</option>
+          <option value="cybersecurity">Cybersecurity Engineer</option>
+          <option value="adas">ADAS Engineer</option>
+          <option value="finance">Finance &amp; Accounts</option>
+          <option value="hr-bp">HR Business Partner</option>
+          <option value="vp-tech">VP Technology</option>
+          <option value="cto">India CTO / MD</option>
+        </select>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-title">City</div>
+        <select class="filter-select" id="f-city" onchange="updateBenchmark()">
+          <option value="bengaluru">Bengaluru</option>
+          <option value="hyderabad">Hyderabad</option>
+          <option value="pune">Pune</option>
+          <option value="mumbai">Mumbai</option>
+          <option value="chennai">Chennai</option>
+          <option value="ncr">NCR (Noida/Gurugram)</option>
+        </select>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-title">Vertical</div>
+        <select class="filter-select" id="f-vertical" onchange="updateBenchmark()">
+          <option>All verticals (blended)</option>
+          <option>BFSI</option>
+          <option>Technology &amp; Engineering</option>
+          <option>Healthcare &amp; Life Sciences</option>
+          <option>Automotive</option>
+          <option>Energy &amp; Utilities</option>
+          <option>Insurance</option>
+          <option>Professional Services</option>
+          <option>Retail &amp; Consumer</option>
+        </select>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-title">GCC size (headcount)</div>
+        <select class="filter-select" id="f-size" onchange="updateBenchmark()">
+          <option>All sizes (blended)</option>
+          <option>Less than 500</option>
+          <option>500 – 2,000</option>
+          <option>2,000 – 5,000</option>
+          <option>5,000 – 10,000</option>
+          <option>10,000+</option>
+        </select>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-title">Experience band</div>
+        <div class="exp-slider-wrap">
+          <div class="exp-label-row">
+            <span>Experience range</span>
+            <span class="exp-label-val" id="exp-val">3 – 7 years</span>
+          </div>
+          <input type="range" class="slider" id="exp-slider" min="0" max="4" value="1" step="1"
+            oninput="updateExpLabel(this.value);updateBenchmark()">
+          <div class="exp-ticks">
+            <span>0–2yr</span><span>3–7yr</span><span>7–12yr</span><span>12–18yr</span><span>18+yr</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="compare-your-salary">
+        <div class="cys-label">Compare your salary</div>
+        <div class="cys-wrap">
+          <span class="cys-prefix">₹</span>
+          <input class="cys-input" type="number" id="your-salary" placeholder="e.g. 2800000"
+            min="0" step="10000" inputmode="numeric"
+            oninput="updateBenchmark()">
+        </div>
+        <div class="cys-hint">Enter your annual CTC in rupees. We&rsquo;ll show where you stand.</div>
+        <div class="cys-error" id="cys-error">Please enter a salary greater than 0.</div>
+        <button class="run-btn" onclick="updateBenchmark()">Update benchmark</button>
+      </div>
+
+    </div><!-- /filters-inner -->
+  </aside>
+
+  <!-- ══════════════════════════════════
+       RESULTS COLUMN
+  ══════════════════════════════════ -->
+  <div class="results-col">
+
+    <!-- Main result card -->
+    <div class="result-main">
+      <div class="rm-header">
+        <div class="rm-role" id="result-role">Data Engineer — 3 to 7 years</div>
+        <div class="rm-context">
+          <span class="rm-ctx-chip" id="ctx-city">Bengaluru</span>
+          <span class="rm-ctx-chip" id="ctx-vertical">All verticals</span>
+          <span class="rm-ctx-chip" id="ctx-size">All sizes</span>
+          <span class="rm-ctx-chip" style="background:rgba(29,184,138,.15);border-color:rgba(29,184,138,.3);color:#80DFC0">Q1 2026</span>
+        </div>
+      </div>
+
+      <div class="rm-body">
+        <!-- Percentile bar -->
+        <div class="range-visual">
+          <div class="rv-label">Annual CTC range (₹ Lakhs)</div>
+          <div class="rv-track">
+            <div class="rv-bar-bg"></div>
+            <div class="rv-bar-range" id="rv-range"></div>
+            <div class="rv-bar-median" id="rv-median"></div>
+            <div class="rv-your" id="rv-your" style="display:none"></div>
+          </div>
+          <div class="rv-labels">
+            <div class="rv-label-item"><div class="rv-label-val" id="p25-val">₹18L</div><div class="rv-label-pct">P25</div></div>
+            <div class="rv-label-item"><div class="rv-label-val" id="med-val" style="color:var(--teal-bright)">₹28L</div><div class="rv-label-pct">Median</div></div>
+            <div class="rv-label-item"><div class="rv-label-val" id="p75-val">₹42L</div><div class="rv-label-pct">P75</div></div>
+            <div class="rv-label-item"><div class="rv-label-val" id="p90-val">₹58L</div><div class="rv-label-pct">P90</div></div>
+          </div>
+          <div class="rv-legend">
+            <div class="rv-leg-item"><div class="rv-leg-dot" style="background:var(--navy)"></div>Salary range (P25–P75)</div>
+            <div class="rv-leg-item"><div class="rv-leg-dot" style="background:var(--teal-bright)"></div>Market median</div>
+            <div class="rv-leg-item" id="your-legend" style="display:none"><div class="rv-leg-dot" style="background:var(--amber)"></div>Your salary</div>
+          </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="salary-kpi-grid">
+          <div class="skpi">
+            <div class="skpi-val" id="kpi-median">₹28L</div>
+            <div class="skpi-lbl">Median CTC</div>
+            <div class="skpi-sub">50th percentile</div>
+          </div>
+          <div class="skpi">
+            <div class="skpi-val" id="kpi-range">₹18–42L</div>
+            <div class="skpi-lbl">Typical range</div>
+            <div class="skpi-sub">P25 to P75</div>
+          </div>
+          <div class="skpi">
+            <div class="skpi-val" id="kpi-sample">1,420</div>
+            <div class="skpi-lbl">Data points</div>
+            <div class="skpi-sub">Q1 2026 survey</div>
+          </div>
+        </div>
+
+        <!-- Your salary result -->
+        <div class="your-salary-result" id="your-salary-result" style="display:none">
+          <div class="ysr-icon">📍</div>
+          <div class="ysr-body">
+            <div class="ysr-label">Your position in the market</div>
+            <div class="ysr-text" id="ysr-text">Your CTC places you below the median for this role.</div>
+          </div>
+          <div class="ysr-pct" id="ysr-pct">P38</div>
+        </div>
+
+        <!-- Breakdown table -->
+        <div class="breakdown-title">Salary range by vertical</div>
+        <div class="breakdown-table-wrap">
+          <table class="breakdown-table">
+            <thead>
+              <tr><th>Vertical</th><th>P25</th><th>Median</th><th>P75</th><th>vs. avg</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>BFSI</td>
+                <td class="td-range">₹22L</td><td class="td-range">₹34L</td><td class="td-range">₹50L</td>
+                <td><div class="td-bar"><div class="td-bar-track"><div class="td-bar-fill" style="width:80%"></div></div><span style="font-size:11px;color:var(--teal);font-weight:600">+21%</span></div></td>
+              </tr>
+              <tr>
+                <td>Technology &amp; Engg</td>
+                <td class="td-range">₹20L</td><td class="td-range">₹30L</td><td class="td-range">₹46L</td>
+                <td><div class="td-bar"><div class="td-bar-track"><div class="td-bar-fill" style="width:68%"></div></div><span style="font-size:11px;color:var(--teal);font-weight:600">+7%</span></div></td>
+              </tr>
+              <tr>
+                <td>Healthcare &amp; LS</td>
+                <td class="td-range">₹16L</td><td class="td-range">₹24L</td><td class="td-range">₹36L</td>
+                <td><div class="td-bar"><div class="td-bar-track"><div class="td-bar-fill" style="width:44%"></div></div><span style="font-size:11px;color:var(--amber);font-weight:600">-14%</span></div></td>
+              </tr>
+              <tr>
+                <td>Retail &amp; Consumer</td>
+                <td class="td-range">₹18L</td><td class="td-range">₹28L</td><td class="td-range">₹42L</td>
+                <td><div class="td-bar"><div class="td-bar-track"><div class="td-bar-fill" style="width:58%"></div></div><span style="font-size:11px;color:var(--ink-light);font-weight:600">+0%</span></div></td>
+              </tr>
+              <tr>
+                <td>Automotive <span class="premium-badge">Premium</span></td>
+                <td colspan="4" style="color:var(--ink-light);font-style:italic;font-size:12px">Upgrade to see breakdown</td>
+              </tr>
+              <tr>
+                <td>Energy &amp; Utilities <span class="premium-badge">Premium</span></td>
+                <td colspan="4" style="color:var(--ink-light);font-style:italic;font-size:12px">Upgrade to see breakdown</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div><!-- /rm-body -->
+    </div><!-- /result-main -->
+
+    <!-- City comparison -->
+    <div class="city-comp">
+      <div class="city-comp-title">Salary comparison across cities</div>
+      <div class="city-comp-grid">
+        <div class="cc-city current">
+          <div class="cc-name">Bengaluru</div>
+          <div class="cc-range">₹18–42L</div>
+          <div class="cc-median">Median: ₹28L</div>
+          <div class="cc-index base">Base city</div>
+        </div>
+        <div class="cc-city">
+          <div class="cc-name">Mumbai</div>
+          <div class="cc-range">₹20–46L</div>
+          <div class="cc-median">Median: ₹31L</div>
+          <div class="cc-index high">+11% vs BLR</div>
+        </div>
+        <div class="cc-city">
+          <div class="cc-name">NCR</div>
+          <div class="cc-range">₹18–42L</div>
+          <div class="cc-median">Median: ₹28L</div>
+          <div class="cc-index base">Parity with BLR</div>
+        </div>
+        <div class="cc-city">
+          <div class="cc-name">Hyderabad</div>
+          <div class="cc-range">₹16–38L</div>
+          <div class="cc-median">Median: ₹25L</div>
+          <div class="cc-index low">-11% vs BLR</div>
+        </div>
+        <div class="cc-city">
+          <div class="cc-name">Pune</div>
+          <div class="cc-range">₹16–36L</div>
+          <div class="cc-median">Median: ₹24L</div>
+          <div class="cc-index low">-14% vs BLR</div>
+        </div>
+        <div class="cc-city">
+          <div class="cc-name">Chennai</div>
+          <div class="cc-range">₹15–35L</div>
+          <div class="cc-median">Median: ₹23L</div>
+          <div class="cc-index low">-18% vs BLR</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gated card -->
+    <div class="gated-card">
+      <div class="gc-bg"></div>
+      <div class="gc-icon">🔒</div>
+      <div class="gc-title">Unlock the full benchmark</div>
+      <div class="gc-sub">Premium gives you full percentile data, GCC size breakdown, attrition rates, gender pay gap analysis, and salary trend charts.</div>
+      <div class="gc-features">
+        <div class="gc-feat"><svg viewBox="0 0 16 16"><path d="M2 8l4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/></svg>P10–P90 for all 80+ roles</div>
+        <div class="gc-feat"><svg viewBox="0 0 16 16"><path d="M2 8l4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/></svg>Salary by GCC size (headcount band)</div>
+        <div class="gc-feat"><svg viewBox="0 0 16 16"><path d="M2 8l4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/></svg>Historical trend 2022–2026</div>
+        <div class="gc-feat"><svg viewBox="0 0 16 16"><path d="M2 8l4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/></svg>Gender pay gap by role &amp; vertical</div>
+        <div class="gc-feat"><svg viewBox="0 0 16 16"><path d="M2 8l4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/></svg>Variable pay &amp; ESOP benchmarks</div>
+        <div class="gc-feat"><svg viewBox="0 0 16 16"><path d="M2 8l4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/></svg>Downloadable PDF report</div>
+      </div>
+      <a href="/signup?plan=premium" class="gc-btn">Upgrade to Premium &mdash; ₹4,999/month</a>
+      <div class="gc-already">Already premium? <a href="/login">Sign in</a></div>
+    </div>
+
+    <!-- Data note -->
+    <div class="data-note">
+      <span class="dn-icon">ℹ️</span>
+      <div><strong>About this data:</strong> Salary ranges are derived from 14,200+ data points including anonymised submissions from GCC HR teams, public job posting salary disclosures, and our annual GCC compensation survey (April 2026). All figures represent annual CTC in Indian Rupees. Data refreshed quarterly.</div>
+    </div>
+
+  </div><!-- /results-col -->
+</div><!-- /tool-body -->
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   SALARY BENCHMARK — API-DRIVEN SCRIPT
+   Drop this entire <script> block in place of the old one.
+   All static benchmarkData is removed; every update hits the API.
+══════════════════════════════════════════════════════════════ */
+
+/* ── Nav scroll ── */
+(function(){
+  var nav = document.getElementById('nav');
+  if(nav) window.addEventListener('scroll', function(){
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+})();
+
+/* ══════════════════════════════════
+   CONSTANTS & MAPPINGS
+══════════════════════════════════ */
+var API_BASE = 'https://sansovi-gcc-platform-492263949881.asia-south1.run.app/api/v1/intelligence/salary-benchmark';
+
+/* Map <select> values → API param strings */
+var ROLE_MAP = {
+  'data-engineer'  : 'data-engineer',
+  'ml-engineer'    : 'ml-engineer',
+  'swe'            : 'swe',
+  'cloud-devops'   : 'cloud-devops',
+  'risk-analyst'   : 'risk-analyst',
+  'product-manager': 'product-manager',
+  'cybersecurity'  : 'cybersecurity',
+  'adas'           : 'adas',
+  'finance'        : 'finance',
+  'hr-bp'          : 'hr-bp',
+  'vp-tech'        : 'vp-tech',
+  'cto'            : 'cto'
+};
+
+var CITY_MAP = {
+  'bengaluru' : 'bengaluru',
+  'hyderabad' : 'hyderabad',
+  'pune'      : 'pune',
+  'mumbai'    : 'mumbai',
+  'chennai'   : 'chennai',
+  'ncr'       : 'ncr'
+};
+
+/* Slider index → API experienceBand string */
+var EXP_LABELS  = ['0–2 years', '3–7 years', '7–12 years', '12–18 years', '18+ years'];
+var EXP_API     = ['0-2 yr',    '3-7 yr',    '7-12 yr',    '12-18 yr',    '18+ yr'];
+
+/* Human-readable city labels */
+var CITY_LABELS = {
+  'bengaluru':'Bengaluru','hyderabad':'Hyderabad','pune':'Pune',
+  'mumbai':'Mumbai','chennai':'Chennai','ncr':'NCR'
+};
+
+/* Debounce timer */
+var _debounceTimer = null;
+
+/* ══════════════════════════════════
+   SALARY INPUT VALIDATION
+   Returns a clean lakhs value (>0) or 0 when empty/invalid.
+   Shows an inline error only for an actual negative/invalid entry.
+══════════════════════════════════ */
+function readYourSalary(){
+  var input   = document.getElementById('your-salary');
+  var errEl   = document.getElementById('cys-error');
+  var raw     = input.value.trim();
+
+  // Empty field → no comparison, no error
+  if(raw === ''){
+    input.classList.remove('invalid');
+    if(errEl) errEl.classList.remove('show');
+    return 0;
+  }
+
+  var rupees = parseFloat(raw);
+
+  // Invalid or <= 0 → flag error, return 0 so nothing bogus renders
+  if(isNaN(rupees) || rupees <= 0){
+    input.classList.add('invalid');
+    if(errEl) errEl.classList.add('show');
+    // Auto-correct a typed negative back to empty so the spinner can't keep it
+    if(rupees < 0) input.value = '';
+    return 0;
+  }
+
+  // Valid
+  input.classList.remove('invalid');
+  if(errEl) errEl.classList.remove('show');
+  return rupees / 100000; // → lakhs
+}
+
+/* ══════════════════════════════════
+   MOBILE FILTER TOGGLE
+══════════════════════════════════ */
+function toggleFilters(){
+  var inner  = document.getElementById('filters-inner');
+  var arrow  = document.getElementById('mft-arrow');
+  var label  = document.getElementById('mft-label');
+  var btn    = document.getElementById('filter-toggle');
+  var isOpen = inner.classList.contains('is-open');
+
+  if(isOpen){
+    inner.classList.remove('is-open');
+    arrow.classList.remove('open');
+    label.textContent = 'Show';
+    btn.setAttribute('aria-expanded','false');
+  } else {
+    inner.classList.add('is-open');
+    arrow.classList.add('open');
+    label.textContent = 'Hide';
+    btn.setAttribute('aria-expanded','true');
+  }
+}
+
+function handleResize(){
+  var inner = document.getElementById('filters-inner');
+  if(window.innerWidth > 768) inner.classList.add('is-open');
+}
+window.addEventListener('resize', handleResize);
+handleResize();
+
+/* ══════════════════════════════════
+   EXP LABEL
+══════════════════════════════════ */
+function updateExpLabel(v){
+  document.getElementById('exp-val').textContent = EXP_LABELS[parseInt(v)];
+}
+
+/* ══════════════════════════════════
+   LOADING / ERROR STATE HELPERS
+══════════════════════════════════ */
+function setLoading(on){
+  var btn = document.querySelector('.run-btn');
+  if(!btn) return;
+  btn.disabled = on;
+  btn.textContent = on ? 'Loading…' : 'Update benchmark';
+
+  /* Dim result card while fetching */
+  var col = document.querySelector('.results-col');
+  if(col) col.style.opacity = on ? '0.45' : '1';
+}
+
+function showError(msg){
+  var el = document.getElementById('api-error-banner');
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'api-error-banner';
+    el.style.cssText = [
+      'background:#FEF2F2','border:1.5px solid #FECACA','border-radius:10px',
+      'padding:12px 16px','font-size:13px','color:#B91C1C',
+      'display:flex','gap:8px','align-items:flex-start','margin-bottom:12px'
+    ].join(';');
+    var rc = document.querySelector('.results-col');
+    if(rc) rc.insertBefore(el, rc.firstChild);
+  }
+  el.innerHTML = '<span>⚠️</span><span>' + msg + '</span>';
+  el.style.display = 'flex';
+}
+
+function clearError(){
+  var el = document.getElementById('api-error-banner');
+  if(el) el.style.display = 'none';
+}
+
+/* ══════════════════════════════════
+   RENDER FUNCTIONS
+══════════════════════════════════ */
+
+/* ── Percentile bar ── */
+function renderBar(d, yourLakhs){
+  var p90 = d.salaryRange.p90 || 1;
+
+  /* range bar: P25 → P75 */
+  document.getElementById('rv-range').style.left  = ((d.salaryRange.p25 / p90) * 88 + 4) + '%';
+  document.getElementById('rv-range').style.right = (100 - ((d.salaryRange.p75 / p90) * 88 + 4)) + '%';
+
+  /* median tick */
+  document.getElementById('rv-median').style.left = ((d.salaryRange.median / p90) * 88 + 4) + '%';
+
+  /* your salary tick */
+  var yourEl  = document.getElementById('rv-your');
+  var yourLeg = document.getElementById('your-legend');
+  if(yourLakhs > 0){
+    yourEl.style.display  = 'block';
+    yourLeg.style.display = 'flex';
+    yourEl.style.left     = Math.min(96, (yourLakhs / p90) * 88 + 4) + '%';
+  } else {
+    yourEl.style.display  = 'none';
+    yourLeg.style.display = 'none';
+  }
+}
+
+/* ── KPI band labels ── */
+function renderKPIs(d){
+  var sr = d.salaryRange;
+  document.getElementById('p25-val').textContent    = '₹' + sr.p25 + 'L';
+  document.getElementById('med-val').textContent    = '₹' + sr.median + 'L';
+  document.getElementById('p75-val').textContent    = '₹' + sr.p75 + 'L';
+  document.getElementById('p90-val').textContent    = '₹' + sr.p90 + 'L';
+  document.getElementById('kpi-median').textContent = '₹' + sr.median + 'L';
+  document.getElementById('kpi-range').textContent  = '₹' + sr.p25 + '–' + sr.p75 + 'L';
+  document.getElementById('kpi-sample').textContent = (d.dataPoints || 0).toLocaleString();
+}
+
+/* ── Header chips ── */
+function renderHeader(d, cityKey){
+  document.getElementById('result-role').textContent  = d.role + ' — ' + d.experienceBand;
+  document.getElementById('ctx-city').textContent     = d.city || CITY_LABELS[cityKey] || cityKey;
+  document.getElementById('ctx-vertical').textContent = d.vertical || 'All verticals';
+  document.getElementById('ctx-size').textContent     = d.gccSize || 'All sizes';
+}
+
+/* ── Your salary comparison ── */
+function renderYourSalary(d, yourLakhs, cityKey){
+  var wrap = document.getElementById('your-salary-result');
+  if(yourLakhs <= 0){ wrap.style.display = 'none'; return; }
+
+  var sr      = d.salaryRange;
+  var p25     = sr.p25, med = sr.median, p75 = sr.p75, p90 = sr.p90;
+  var pctRaw  = Math.round(((yourLakhs - p25) / (p90 - p25)) * 100);
+  var pct     = Math.max(5, Math.min(95, pctRaw));
+  var pos     = yourLakhs < p25 ? 'below the P25 (lower quartile)'
+              : yourLakhs < med ? 'below the median'
+              : yourLakhs < p75 ? 'above the median, below P75'
+              :                   'above P75 — well compensated';
+
+  document.getElementById('ysr-pct').textContent = 'P' + pct;
+  document.getElementById('ysr-text').innerHTML  =
+    'Your CTC of ₹' + yourLakhs.toFixed(0) + 'L places you <strong>' + pos +
+    '</strong> for this role in ' + (d.city || CITY_LABELS[cityKey] || cityKey) +
+    '. Market median is ₹' + med + 'L.';
+  wrap.style.display = 'flex';
+}
+
+/* ── Vertical breakdown table ── */
+function renderVerticalTable(verticals){
+  var tbody = document.querySelector('.breakdown-table tbody');
+  if(!tbody || !verticals) return;
+
+  tbody.innerHTML = '';
+  verticals.forEach(function(v){
+    var isPositive  = v.vsAvgPct > 0;
+    var isNeutral   = v.vsAvgPct === 0;
+    var pctColor    = isNeutral ? 'var(--ink-light)' : isPositive ? 'var(--teal)' : 'var(--amber)';
+    var pctLabel    = isNeutral ? '+0%' : (isPositive ? '+' : '') + v.vsAvgPct + '%';
+    var barWidth    = Math.min(100, Math.max(10, 50 + v.vsAvgPct * 1.5));
+
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td>' + v.vertical + '</td>' +
+      '<td class="td-range">₹' + v.p25 + 'L</td>' +
+      '<td class="td-range">₹' + v.median + 'L</td>' +
+      '<td class="td-range">₹' + v.p75 + 'L</td>' +
+      '<td>' +
+        '<div class="td-bar">' +
+          '<div class="td-bar-track"><div class="td-bar-fill" style="width:' + barWidth + '%"></div></div>' +
+          '<span style="font-size:11px;color:' + pctColor + ';font-weight:600">' + pctLabel + '</span>' +
+        '</div>' +
+      '</td>';
+    tbody.appendChild(tr);
+  });
+}
+
+/* ── City comparison grid ── */
+function renderCityGrid(cities, selectedCityKey){
+  var grid = document.querySelector('.city-comp-grid');
+  if(!grid || !cities) return;
+
+  grid.innerHTML = '';
+  cities.forEach(function(c){
+    var isBase    = c.vsBasePct === 0 && c.index === 'Base city';
+    var isCurrent = c.city.toLowerCase() === (CITY_LABELS[selectedCityKey]||selectedCityKey).toLowerCase();
+    var idxClass  = isBase ? 'base' : c.vsBasePct > 0 ? 'high' : 'low';
+
+    var div = document.createElement('div');
+    div.className = 'cc-city' + (isCurrent ? ' current' : '');
+    div.innerHTML =
+      '<div class="cc-name">'  + c.city + '</div>' +
+      '<div class="cc-range">₹' + c.p25 + '–' + c.p75 + 'L</div>' +
+      '<div class="cc-median">Median: ₹' + c.median + 'L</div>' +
+      '<div class="cc-index ' + idxClass + '">' + c.index + '</div>';
+    grid.appendChild(div);
+  });
+}
+
+/* ══════════════════════════════════
+   MAIN FETCH + RENDER
+══════════════════════════════════ */
+function updateBenchmark(){
+  var roleKey   = document.getElementById('f-role').value;
+  var cityKey   = document.getElementById('f-city').value;
+  var expIdx    = parseInt(document.getElementById('exp-slider').value);
+  var yourLakhs = readYourSalary();   // validated: always 0 or a positive number
+
+  /* Build query string */
+  var params = new URLSearchParams({
+    role           : ROLE_MAP[roleKey]  || roleKey,
+    city           : CITY_MAP[cityKey]  || cityKey,
+    experienceBand : EXP_API[expIdx]
+  });
+  if(yourLakhs > 0) params.set('yourSalary', yourLakhs.toFixed(2));
+
+  setLoading(true);
+  clearError();
+
+  fetch(API_BASE + '?' + params.toString())
+    .then(function(res){
+      if(!res.ok) throw new Error('API returned ' + res.status);
+      return res.json();
+    })
+    .then(function(d){
+      setLoading(false);
+      renderHeader(d, cityKey);
+      renderKPIs(d);
+      renderBar(d, yourLakhs);
+      renderYourSalary(d, yourLakhs, cityKey);
+      renderVerticalTable(d.verticalBreakdown);
+      renderCityGrid(d.cityBreakdown, cityKey);
+    })
+    .catch(function(err){
+      setLoading(false);
+      showError('Could not load benchmark data. Please try again in a moment. (' + err.message + ')');
+      console.error('[Salary Benchmark]', err);
+    });
+}
+
+/* Debounced wrapper — avoids hammering the API on fast slider moves */
+function updateBenchmarkDebounced(){
+  clearTimeout(_debounceTimer);
+  _debounceTimer = setTimeout(updateBenchmark, 350);
+}
+
+/* ══════════════════════════════════
+   RESET
+══════════════════════════════════ */
+function resetFilters(){
+  document.getElementById('f-role').value     = 'data-engineer';
+  document.getElementById('f-city').value     = 'bengaluru';
+  document.getElementById('f-vertical').selectedIndex = 0;
+  document.getElementById('f-size').selectedIndex     = 0;
+  document.getElementById('exp-slider').value = 1;
+  document.getElementById('your-salary').value = '';
+  document.getElementById('your-salary').classList.remove('invalid');
+  document.getElementById('cys-error').classList.remove('show');
+  updateExpLabel(1);
+  updateBenchmark();
+}
+
+/* ══════════════════════════════════
+   WIRE UP EVENTS
+   (replaces inline onchange / oninput
+    attrs — keeps HTML cleaner)
+══════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('f-role').addEventListener('change', updateBenchmark);
+  document.getElementById('f-city').addEventListener('change', updateBenchmark);
+  document.getElementById('f-vertical').addEventListener('change', updateBenchmark);
+  document.getElementById('f-size').addEventListener('change', updateBenchmark);
+  document.getElementById('exp-slider').addEventListener('input', function(){
+    updateExpLabel(this.value);
+    updateBenchmarkDebounced();
+  });
+
+  var yourSalaryEl = document.getElementById('your-salary');
+  yourSalaryEl.addEventListener('input', updateBenchmarkDebounced);
+  // On blur, normalise a negative/invalid entry immediately (don't wait for debounce)
+  yourSalaryEl.addEventListener('blur', function(){
+    readYourSalary();
+  });
+  // Block the "-" and "e" characters at keypress so a negative can't even be typed
+  yourSalaryEl.addEventListener('keydown', function(e){
+    if(e.key === '-' || e.key === 'e' || e.key === 'E' || e.key === '+'){
+      e.preventDefault();
+    }
+  });
+
+  document.querySelector('.run-btn').addEventListener('click', updateBenchmark);
+
+  /* Initial load */
+  updateBenchmark();
+});
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =============================================================
+   PREMIUM MEGA FOOTER — Offerings (static) + 5-column row (static)
+   CTA block above and copyright block below are untouched / dynamic.
+   Type: Plus Jakarta Sans (headings/eyebrow) + Inter (body/links)
+   Color: purple #5E26CA / ink #15121F / body #5B5568 / tint #F1EBFB
+   ============================================================= */
+:root{
+	--fp-ink:#15121F;
+	--fp-body:#5B5568;
+	--fp-purple:#5E26CA;
+	--fp-purple-dark:#4A1DA0;
+	--fp-tint:#F1EBFB;
+	--fp-tint-2:#F7F4FC;
+	--fp-divider:rgba(94,38,202,.12);
+}
+
+/* --- Top CTA strip alignment --- */
+.new-cta{
+	padding:44px 0!important;
+}
+.new-cta > .container-fluid > .row{
+	display:flex!important;
+	align-items:stretch!important;
+	width:100%!important;
+	margin-left:0!important;
+	margin-right:0!important;
+}
+.new-cta > .container-fluid > .row > .new-cta-main{
+	display:flex!important;
+	flex:1 1 auto!important;
+	max-width:none!important;
+	width:auto!important;
+}
+.new-cta > .container-fluid > .row > .new-cta-art{
+	display:flex!important;
+	align-items:flex-end!important;
+	justify-content:flex-end!important;
+	flex:0 0 auto!important;
+	max-width:none!important;
+	width:auto!important;
+}
+.new-cta .ct-grid{
+	width:100%!important;
+	min-height:120px!important;
+	display:grid!important;
+	grid-template-columns:minmax(0,1fr) auto!important;
+	align-items:stretch!important;
+	column-gap:32px!important;
+}
+.new-cta .ct-left{
+	max-width:760px!important;
+	align-self:start!important;
+	justify-self:start!important;
+	text-align:left!important;
+}
+.new-cta .ct-left p{
+	margin:16px 0 0!important;
+}
+.new-cta .parallax-image-content-two{
+	display:flex!important;
+	align-items:flex-end!important;
+	justify-content:flex-end!important;
+	align-self:stretch!important;
+	justify-self:end!important;
+	margin-left:0!important;
+	text-align:right!important;
+}
+.new-cta .case-study-btn{
+	margin:0!important;
+}
+.new-cta .cta-img{
+	width:auto!important;
+	height:100%!important;
+	display:flex!important;
+	align-items:flex-end!important;
+	justify-content:flex-end!important;
+}
+
+/* --- Offerings row --- */
+.f-offerings{
+	background:white;
+	padding:50px 0 0px;
+}
+.f-offerings-eyebrow{
+	display:flex;
+	align-items:center;
+	gap:10px;
+	margin-bottom:36px;
+}
+.f-offerings-eyebrow .tick{
+	width:18px;
+	height:2px;
+	background:var(--fp-purple);
+	display:inline-block;
+}
+.f-offerings-eyebrow span:last-child{
+	font-family:'Plus Jakarta Sans',sans-serif;
+	font-size:12.5px;
+	font-weight:700;
+	letter-spacing:.14em;
+	text-transform:uppercase;
+	color:var(--fp-ink);
+}
+.f-offerings-row{
+	row-gap:28px;
+}
+.f-offerings-col h4{
+	font-family:'Plus Jakarta Sans',sans-serif;
+	font-size:13px;
+	font-weight:700;
+	color:var(--fp-purple);
+	margin-bottom:16px;
+}
+.f-offerings-col ul{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+.f-offerings-col ul li{
+	margin-bottom:12px;
+}
+.f-offerings-col ul li a{
+	font-family:'Inter',sans-serif;
+	font-size:14.5px;
+	color:var(--fp-ink);
+	text-decoration:none;
+	transition:color .18s ease, padding-left .18s ease;
+}
+.f-offerings-col ul li a:hover{
+	color:var(--fp-purple);
+	padding-left:4px;
+}
+
+/* Products sits in row 1 for layout, but must not read as an "Offering" —
+   plain bold caps heading like the row-2 columns instead of purple. */
+.f-offerings-col--plain h4{
+	font-family:'Plus Jakarta Sans',sans-serif;
+	font-size:12.5px;
+	font-weight:700;
+	letter-spacing:.09em;
+	text-transform:uppercase;
+	color:var(--fp-ink);
+}
+
+/* --- Company / Engagement / Products / Resources / Talk to us row --- */
+.f-top{
+	background:white;
+	padding:0 0 52px;
+}
+.f-top-row{
+	row-gap:32px;
+}
+.f-col h4{
+	font-family:'Plus Jakarta Sans',sans-serif;
+	font-size:12.5px;
+	font-weight:700;
+	text-transform:uppercase;
+	letter-spacing:.09em;
+	color:var(--fp-ink);
+	margin-bottom:18px;
+}
+.f-links ul{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+.f-links ul li{
+	margin-bottom:13px;
+}
+.f-links ul li a{
+	font-family:'Inter',sans-serif;
+	font-size:14.5px;
+	color:var(--fp-body);
+	text-decoration:none;
+	transition:color .18s ease;
+}
+.f-links ul li a:hover{
+	color:var(--fp-purple);
+}
+
+/* premium short centered divider between the Offerings row and the Company row */
+.f-top{
+	position:relative;
+}
+.f-section-divider{
+	padding:28px 0 30px;
+	background:white;
+}
+.f-section-divider .container{
+	border-top:1px solid var(--fp-divider);
+}
+
+/* --- Talk to us column --- */
+.ftopge-cont h4{
+	margin-bottom:18px;
+}
+.footer-contact-info{
+	list-style:none;
+	margin:0 0 22px;
+	padding:0;
+}
+.footer-contact-info li{
+	display:flex;
+	align-items:flex-start;
+	gap:12px;
+	margin-bottom:15px;
+}
+.footer-contact-info .icon-badge{
+	flex:none;
+	width:30px;
+	height:30px;
+	border-radius:50%;
+	background:var(--fp-tint);
+	display:flex;
+	align-items:center;
+	justify-content:center;
+}
+.footer-contact-info .icon-badge svg{
+	width:14px;
+	height:14px;
+}
+.footer-contact-info li a{
+	font-family:'Inter',sans-serif;
+	font-size:14.5px;
+	font-weight:600;
+	color:var(--fp-ink);
+	text-decoration:none;
+}
+.footer-contact-info li a:hover{
+	color:var(--fp-purple);
+}
+.footer-contact-info .phone-label{
+	display:block;
+	font-size:11.5px;
+	font-weight:500;
+	color:#9992AC;
+	margin-top:1px;
+}
+.footer-contact-info li.email a{
+	align-self:center;
+}
+.ftopge-schedule{
+	margin-top:6px;
+}
+.schedule-call-btn{
+	display:inline-flex;
+	align-items:center;
+	gap:8px;
+	font-family:'Plus Jakarta Sans',sans-serif;
+	font-size:13.5px;
+	font-weight:700;
+	color:#fff;
+	background:var(--fp-purple);
+	padding:11px 20px;
+	border-radius:999px;
+	text-decoration:none;
+	transition:background .18s ease, transform .18s ease;
+}
+.schedule-call-btn:hover{
+	background:var(--fp-purple-dark);
+	transform:translateY(-1px);
+	color:#fff;
+}
+.schedule-call-btn::after{
+	content:"\2192";
+}
+
+/* =========================
+   RESPONSIVE — TABLET
+   ========================= */
+@media (max-width: 991px){
+	.new-cta .ct-grid{
+		min-height:0!important;
+	}
+	.f-offerings{ padding:44px 0 20px; }
+	.f-offerings-col{ margin-bottom:8px; }
+	.f-top{ padding:40px 0; }
+	.f-col{ margin-bottom:8px; }
+}
+
+/* =========================
+   RESPONSIVE — MOBILE
+   ========================= */
+@media (max-width: 767px){
+	.new-cta{
+		padding:34px 0!important;
+	}
+	.new-cta > .container-fluid > .row{
+		display:block!important;
+	}
+	.new-cta .ct-grid{
+		display:flex!important;
+		flex-direction:column!important;
+		gap:22px!important;
+	}
+	.new-cta .parallax-image-content-two{
+		align-self:flex-start!important;
+		justify-content:flex-start!important;
+		text-align:left!important;
+	}
+	.new-cta .cta-img{
+		display:none!important;
+	}
+	.f-offerings{ padding:36px 0 8px; }
+	.f-offerings-eyebrow{ margin-bottom:22px; }
+	.f-offerings-row{ row-gap:24px; }
+	.f-offerings-col{
+		margin-bottom:4px;
+	}
+	.f-offerings-col h4{ margin-bottom:10px; }
+	.f-offerings-col ul li{ margin-bottom:10px; }
+
+	.f-top{ padding:32px 0 28px; }
+	.f-top-row{ row-gap:26px; }
+	.f-col h4{ margin-bottom:12px; }
+	.f-links ul li{ margin-bottom:10px; }
+
+	.ftopge-cont{ text-align:left; }
+	.footer-contact-info li a{ font-size:14px; }
+}
+</style>
+
+<!-- =============================================================
+     TOP CTA / LOGO STRIP — unchanged, still dynamic (ACF options)
+     ============================================================= -->
+<section class="new-cta position-relative" style="background:#5E26CA;">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-10 new-cta-main">
+				<div class="ct-grid">
+					<div class="ct-left">
+						<div class="ct-logo">
+															<a href="https://www.sansovi.com/">
+									<img src="https://www.sansovi.com/wp-content/uploads/2026/08/Sansovi-white-scaled.png" class="footer-logo" alt="">
+								</a>
+													</div>
+						<p><span style="font-weight: 400;">SansoviGCC by GoodWorks Group is India&#8217;s Leading End-to-End GCC Solutions Platform to build, operate and scale GCCs.</span></p>
+					</div>
+											<div class="parallax-image-content-two text-end ct-right">
+							<a href="https://sansovi.com/contact/" class="tt__btn btn-round case-study-btn">Get in Touch</a>
+						</div>
+									</div>
+			</div>
+					</div>
+	</div>
+</section>
+
+<footer>
+
+	<!-- =========================================================
+	     OFFERINGS — STATIC HTML (no ACF / no widgets, hardcoded)
+	     ========================================================= -->
+	<div class="f-offerings">
+		<div class="container">
+			<div class="f-offerings-eyebrow">
+				<span class="tick"></span>
+				<span>GCC Offerings</span>
+			</div>
+			<div class="row f-offerings-row">
+				<div class="col-lg-3 col-md-6 col-sm-6 f-offerings-col">
+					<h4>Setup &amp; structure</h4>
+					<ul>
+						<li><a href="/offerings/gcc-as-a-service/">GCC as a Service</a></li>
+						<li><a href="/offerings/eor-services-india/">EOR Services</a></li>
+						<li><a href="/offerings/gcc-legal-entity-setup-india/">Legal Entity Setup</a></li>
+						<li><a href="/offerings/global-business-services/">Global Business Services</a></li>
+						<li><a href="/offerings/gcc-advisory-services/">GCC Advisory Services</a></li>
+					</ul>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6 f-offerings-col">
+					<h4>Talent &amp; people</h4>
+					<ul>
+						<li><a href="/offerings/gcc-talent-solutions/">GCC Talent Solution</a></li>
+						<li><a href="/offerings/shared-services-center/">GCC Shared Services</a></li>
+						<li><a href="/offerings/employer-branding-services-for-gccs/">GCC Employer Branding</a></li>
+						<li><a href="/offerings/gcc-growth-market-enablement-services/">GCC Growth Market Enablement</a></li>
+					</ul>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6 f-offerings-col">
+					<h4>Workspace &amp; ops</h4>
+					<ul>
+						<li><a href="/offerings/gcc-workspace-office-solutions/">GCC Workspace Solution</a></li>
+						<li><a href="/offerings/gcc-technology-solutions/">GCC Technology Solutions</a></li>
+						<li><a href="/offerings/facility-management-services-for-gccs/">GCC Facility Management</a></li>
+						<li><a href="/offerings/business-operations-support-services-for-gccs-in-india/">GCC Business Operations Support</a></li>
+					</ul>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6 f-offerings-col f-offerings-col--plain">
+					<h4>Products</h4>
+					<ul>
+						<li><a href="/products/gcc-unified-platform-overview/">Unified Platform</a></li>
+						<li><a href="/products/compliance-analytics-gcc-india/">Compliance &amp; Analytics</a></li>
+						<li><a href="/products/gcc-kriatix-ai-labs-low-code/">Kriatix.ai</a></li>
+						<li><a href="/products/netskill-lms-gcc/">NetSkill LMS/LXP</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="f-section-divider"><div class="container"></div></div>
+
+	<!-- =========================================================
+	     COMPANY / ENGAGEMENT MODELS / RESOURCES / TALK TO US
+	     STATIC HTML — Products lives in the row above as its own
+	     plain-heading column, separate from the Offerings items.
+	     ========================================================= -->
+	<div class="f-top">
+		<div class="container">
+			<div class="row f-top-row">
+				<div class="col-lg-3 col-md-6 col-sm-6 f-col">
+					<div class="f-links">
+						<h4>Company</h4>
+						<ul>
+							<li><a href="/">Home</a></li>
+							<li><a href="/about-us/">About us</a></li>
+							<li><a href="/contact/">Contact</a></li>
+							<li><a href="/privacy-policy/">Privacy policy</a></li>
+							<li><a href="/sitemap/">Sitemap</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6 f-col">
+					<div class="f-links">
+						<h4>Engagement models</h4>
+						<ul>
+							<li><a href="/build-operate-transfer-services/">Build Operate Transfer</a></li>
+							<li><a href="/offerings/managed-teams-for-global-capability-centers/">Managed teams</a></li>
+							<li><a href="/assisted-diy-model-abo-gcc-india/">Assisted DIY Model</a></li>
+                            <li><a href="/gcc-coe/">Sector Specific GCC CoEs</a></li>
+                            <li><a href="/beyond-bangalore-gcc/">Beyond Bangalore GCC as a Service Karnataka</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6 f-col">
+					<div class="f-links">
+						<h4>Resources</h4>
+						<ul>
+							<li><a href="/blog/">Blog</a></li>
+							<li><a href="/gcc-knowledge-hub/">GCC Knowledge Hub</a></li>
+							<li><a href="https://chatbot.kriyatix.ai/?source=sansovi&tool=gcc_budget_calculator"target="_blank" rel="noopener">GCC Budget Calculator</a></li>
+							<li><a href="/case-studies/">Success Stories</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6 f-col ftopge-cont">
+					<h4>Talk to us</h4>
+					<ul class="footer-contact-info">
+						<li class="phone">
+							<span class="icon-badge">
+								<svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8z" fill="#5E26CA" /></svg>
+							</span>
+							<span>
+								<a href="tel:+919863077000">+91 9863077000</a>
+								<small class="phone-label">India</small>
+							</span>
+						</li>
+						<li class="phone">
+							<span class="icon-badge">
+								<svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8z" fill="#5E26CA" /></svg>
+							</span>
+							<span>
+								<a href="tel:+971585470072">+971 585470072</a>
+								<small class="phone-label">Dubai</small>
+							</span>
+						</li>
+						<li class="email">
+							<span class="icon-badge">
+								<svg viewBox="0 0 24 24" fill="none"><path d="M3 6.5C3 5.7 3.7 5 4.5 5h15c.8 0 1.5.7 1.5 1.5v11c0 .8-.7 1.5-1.5 1.5h-15c-.8 0-1.5-.7-1.5-1.5v-11z" stroke="#5E26CA" stroke-width="1.4" /><path d="M4 6.5l8 6 8-6" stroke="#5E26CA" stroke-width="1.4" stroke-linecap="round" /></svg>
+							</span>
+							<a href="mailto:contact@sansovi.com">contact@sansovi.com</a>
+						</li>
+					</ul>
+					<div class="ftopge-schedule">
+						<a href="/contact/" class="schedule-call-btn">Schedule a call</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- =========================================================
+	     COPYRIGHT / SOCIAL — unchanged, still dynamic (ACF options)
+	     ========================================================= -->
+	<div class="f-bottom">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-7 col-md-7">
+					<div class="fbo-left">
+						<ul>
+															<li>© 2026 SANSOVI - GCC Solutions (A GoodWorks Group Company)</li>
+																				</ul>
+					</div>
+				</div>
+				<div class="col-lg-5 col-md-5">
+					<div class="f-social">
+						<ul>
+															<li>Follow Us on </li>
+																						<li><a href="https://www.linkedin.com/company/sansovigcc-by-goodworks/" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M4.24234 2.44502C3.60484 2.5669 2.92047 3.10127 2.62984 3.71064C2.41422 4.17002 2.34859 4.66689 2.44703 5.12158C2.55484 5.6044 2.72828 5.95127 3.02359 6.27002C4.45797 7.81221 6.98453 6.81846 6.98453 4.70908C6.98453 3.23721 5.68609 2.16846 4.24234 2.44502Z"
+												fill="black" />
+											<path
+												d="M15.8438 8.57812C15.6234 8.625 15.3422 8.7 15.2109 8.74219C14.4281 9.01406 13.6406 9.61406 13.2188 10.275L13.0313 10.5562L13.0219 9.675L13.0078 8.78906L11.1 8.775L9.1875 8.76562V15.1875V21.6094H11.1797H13.1719V18.1734C13.1719 14.7516 13.1953 14.1937 13.3406 13.6172C13.5141 12.9422 13.9266 12.4031 14.4469 12.1641C14.9813 11.9203 15.8391 11.8922 16.3781 12.0938C16.8984 12.2906 17.2875 12.7734 17.4563 13.4344C17.5969 13.9828 17.625 14.7422 17.625 18.15V21.5625H19.6172H21.6094V17.8219C21.6094 13.9547 21.5813 13.1016 21.4172 12.1875C21.0328 10.0078 19.9266 8.85469 17.9203 8.55469C17.2875 8.46094 16.3453 8.47031 15.8438 8.57812Z"
+												fill="black" />
+											<path
+												d="M2.71875 15.1875V21.6094H4.71094H6.70313V15.1875V8.76562H4.71094H2.71875V15.1875Z"
+												fill="black" />
+										</svg>
+									</a></li>
+																						<li><a href="https://www.instagram.com/sansovi_goodworks/" target="_blank"><svg width="19" height="19" viewBox="0 0 19 19" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M5.93907 0.0202427C4.71337 0.0722427 3.87395 0.228241 3.16453 0.532808C2.49968 0.818804 2.10597 1.08252 1.61569 1.56908C0.954559 2.2265 0.542279 2.96563 0.282282 3.95734C0.0519993 4.8339 0 5.84045 0 9.49155C0 13.0832 0.0482851 14.1009 0.263711 14.9775C0.798561 17.1577 2.39568 18.5469 4.7468 18.87C5.41907 18.9591 6.83048 19 9.52702 19C12.0341 19 13.479 18.9629 14.129 18.8849C15.4587 18.7289 16.4986 18.2683 17.3195 17.4809C18.2443 16.5895 18.7346 15.5235 18.9129 14.0043C18.9835 13.4101 18.9835 5.48389 18.9129 4.92304C18.768 3.78648 18.43 2.85049 17.8952 2.13364C17.6315 1.77708 17.0669 1.23851 16.7141 0.997087C15.9155 0.458523 14.9535 0.161385 13.687 0.0536709C13.089 0.00538635 6.95305 -0.0206127 5.93907 0.0202427ZM13.973 1.81422C15.0315 1.97022 15.6258 2.23393 16.1978 2.80221C16.5692 3.17363 16.7735 3.50048 16.9555 4.00562C17.2601 4.8599 17.2898 5.31303 17.2898 9.51012C17.2898 11.9281 17.2749 13.0906 17.2415 13.4806C17.1338 14.7695 16.8775 15.464 16.2758 16.1066C15.6481 16.7752 14.8644 17.1057 13.6498 17.2172C12.9924 17.2803 7.55847 17.31 6.30678 17.258C5.74221 17.2357 5.15165 17.1986 4.99194 17.1763C4.28995 17.0797 3.61024 16.8309 3.18682 16.5226C2.92311 16.3257 2.49968 15.8652 2.34368 15.6052C2.03169 15.0852 1.84598 14.3535 1.78283 13.4249C1.67141 11.7387 1.70855 5.95188 1.83483 4.99361C1.96855 4.00191 2.27683 3.33334 2.85996 2.76878C3.49881 2.1485 4.33823 1.84765 5.63821 1.76594C5.9205 1.75108 7.81847 1.73993 9.8613 1.74736C13.0295 1.75479 13.635 1.76222 13.973 1.81422Z"
+												fill="black" />
+											<path
+												d="M14.0851 3.39947C13.6654 3.61118 13.4648 3.93803 13.4648 4.42088C13.4648 4.77002 13.5466 4.97802 13.7843 5.21573C14.022 5.44973 14.23 5.53516 14.5791 5.53516C14.828 5.53516 14.9097 5.5203 15.088 5.43116C15.4631 5.24545 15.6748 4.92231 15.7045 4.49146C15.7305 4.10889 15.6451 3.88603 15.3814 3.61861C15.1363 3.37347 14.9208 3.28804 14.5605 3.28804C14.36 3.28804 14.2708 3.31033 14.0851 3.39947Z"
+												fill="black" />
+											<path
+												d="M8.64086 4.6874C7.66401 4.86569 6.7986 5.32254 6.07061 6.05424C5.1049 7.01623 4.64062 8.14164 4.64062 9.49363C4.64062 10.3108 4.79291 10.983 5.1309 11.659C6.17089 13.7241 8.45886 14.7827 10.6837 14.2293C11.5603 14.0101 12.2362 13.6313 12.8937 12.9962C13.4842 12.4242 13.8816 11.8002 14.1305 11.0536C14.3088 10.515 14.3756 10.099 14.3756 9.49363C14.3756 8.89192 14.3088 8.47221 14.1342 7.94479C13.8965 7.23166 13.5511 6.66709 13.0125 6.10996C12.2771 5.35225 11.3597 4.86197 10.3494 4.68369C9.93713 4.61312 9.042 4.61312 8.64086 4.6874ZM10.1117 6.38852C11.8128 6.71538 12.9419 8.38678 12.6151 10.099C12.4145 11.1353 11.6531 12.0565 10.68 12.4316C10.2046 12.6173 9.9297 12.6619 9.37999 12.6396C8.99 12.6247 8.83771 12.6024 8.58143 12.5207C7.45602 12.1642 6.63517 11.2542 6.40489 10.1102C6.31575 9.6682 6.34917 8.98106 6.48289 8.56507C6.83203 7.45822 7.7643 6.61509 8.87486 6.39224C9.20542 6.32538 9.77742 6.32538 10.1117 6.38852Z"
+												fill="black" />
+										</svg>
+									</a></li>
+																													<li><a href="https://www.facebook.com/sansovi.goodworks/" target="_blank"><svg width="10" height="19" viewBox="0 0 10 19" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M6.50021 0.0342369C5.43046 0.201384 4.68015 0.565397 4.06356 1.21542C3.54354 1.76515 3.22039 2.40774 3.03839 3.25091C2.96781 3.57035 2.96038 3.7635 2.94552 5.26412L2.93067 6.92818H1.46348H0V8.61823V10.3083L1.45976 10.3157L2.91581 10.3269L2.92695 14.6616L2.93438 19H4.68015H6.42592V14.6541V10.3083H7.87454C8.67314 10.3083 9.32316 10.3046 9.32316 10.2971C9.42345 9.62112 9.75403 6.97646 9.74289 6.95418C9.73546 6.93932 8.98515 6.92818 8.07512 6.92818H6.42221L6.43335 5.5427C6.4445 4.19066 6.44821 4.15723 6.53364 3.94179C6.70822 3.50721 7.07223 3.2472 7.62196 3.17663C7.77054 3.15805 8.33884 3.13948 8.88858 3.13948H9.88032L9.87289 1.624L9.86175 0.112238L9.37888 0.0676651C8.58771 -0.00290871 6.87165 -0.0251942 6.50021 0.0342369Z"
+												fill="black" />
+										</svg>
+									</a></li>
+													</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</footer>
+
+
+
+<div class="modal fade" id="popupModalIntro" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content popup-header">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closePopup">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body webinar-model">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12 text-center">
+              <div class="live-title">
+                <h3>LIVE EXPERT WEBINAR </h3>
+              </div>
+              <h2>Why Most GCC Setups in India Fail (and How to Get It Right)</h2>
+              <div class="webinar-person-box">
+                <img src="https://netskill.com/wp-content/uploads/2025/08/vishwas.png" alt="">
+                <h2>Vishwas mudagal</h2>
+                <p>CEO & Co-Founder, SansoviGCC </p>
+              </div>
+              <div class="webinar-person-desc">
+                <p>Discover the real challenges foreign companies face while setting up a GCC in India and how to avoid costly delays, compliance risks, and operational failures.</p>
+              </div>
+              <div class="webinar-box">
+                <div class="webinar-box-wrapper">
+                  <p>DETAILS</p>
+                  <div class="time-detail-box d-flex">
+                    <img src="https://netskill.com/wp-content/uploads/2025/08/date.png" alt="date">
+                    <span>Date: 30th Oct, 2026</span>
+                  </div>
+                  <div class="time-detail-box d-flex">
+                    <img src="https://netskill.com/wp-content/uploads/2025/08/time.png" alt="time">
+                    <span>Time: 4:00 PM IST</span>
+                  </div>
+                </div>
+              </div>
+              <div class="webinar-btn">
+                <a href="javascript:void(0);" data-bs-target="#popupModalForm" data-toggle="modal">Register Now</a>
+              </div>
+              <div class="webinar-footer d-flex">
+                <img src="https://netskill.com/wp-content/uploads/2025/08/free.png" alt="">
+                <p>Free registraion • No Spam • Instant access</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="popupModalForm" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-xl">
+    <div class="modal-content webinar-box-form d-flex flex-md-row flex-column">
+      <div class="col-md-6 col-sm-12 webinar-box-left">
+        <div class="webinar-box-left-title">
+          <h3>Why Most GCC Setups<br>in India Fail (and How to Get It Right)</h3>
+          <hr>
+          <p>Discover the real challenges foreign companies face while setting up a GCC in India and how to avoid costly delays, compliance risks, and operational failures.</p>
+        </div>
+
+        <div class="webinar-box-left-time">
+          <div class="webinar-box-left-time-detail-box d-flex">
+            <img src="https://netskill.com/wp-content/uploads/2025/08/date-2.png" alt="date">
+            <p><b>Date:</b> 30th Oct, 2026</p>
+          </div>
+          <div class="webinar-box-left-time-detail-box d-flex">
+            <img src="https://netskill.com/wp-content/uploads/2025/08/time-2.png" alt="date">
+            <p><b>Time:</b> 4:00 PM IST</p>
+          </div>
+          <div class="webinar-box-left-time-detail-box d-flex">
+            <img src="https://netskill.com/wp-content/uploads/2025/08/meet-1.png" alt="date">
+            <p><b>Online via Google Meet</b></p>
+          </div>
+        </div>
+        <p class="mt-4">Get a clear roadmap to launch your GCC in 30–60 days with zero compliance risk</p>
+      </div>
+
+      <div class="col-md-6 col-sm-12 bg-white webinar-box-right p-4">
+        <h5 class="mb-4">REGISTER FOR FREE WEBINAR</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        <div class="webinar-box-right-form popup-form">
+          
+<div class="wpcf7 no-js" id="wpcf7-f4163-o4" lang="en-US" dir="ltr" data-wpcf7-id="4163">
+<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
+<form action="/gcc/salary-benchmark/#wpcf7-f4163-o4" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init">
+<fieldset class="hidden-fields-container"><input type="hidden" name="_wpcf7" value="4163" /><input type="hidden" name="_wpcf7_version" value="6.2.1" /><input type="hidden" name="_wpcf7_locale" value="en_US" /><input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f4163-o4" /><input type="hidden" name="_wpcf7_container_post" value="0" /><input type="hidden" name="_wpcf7_posted_data_hash" value="" />
+</fieldset>
+<input class="wpcf7-form-control wpcf7-hidden" value="" type="hidden" name="captured_url" />
+<input class="wpcf7-form-control wpcf7-hidden" value="WEBSITE_FORM" type="hidden" name="captured_source" />
+<input class="wpcf7-form-control wpcf7-hidden" value="Webinar Form Submission" type="hidden" name="action" />
+<div class="row">
+	<div class="col-12">
+		<p><span class="wpcf7-form-control-wrap" data-name="f-name"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Full Name" value="" type="text" name="f-name" /></span>
+		</p>
+	</div>
+	<div class="col-12">
+		<p><span class="wpcf7-form-control-wrap" data-name="email"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-email wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Email" value="" type="email" name="email" /></span>
+		</p>
+	</div>
+	<div class="col-12">
+		<p><span class="wpcf7-form-control-wrap" data-name="phone"><input size="40" class="wpcf7-form-control wpcf7-phonetext wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-phonetext" autocomplete="tel" data-numberonly="true" aria-required="true" aria-invalid="false" placeholder="Phone" value="" type="text" name="phone" /><input type="hidden" name="phone-country-code" class="wpcf7-phonetext-country-code" /></span>
+		</p>
+	</div>
+	<div class="col-12">
+		<p><span class="wpcf7-form-control-wrap" data-name="message"><textarea cols="40" rows="4" maxlength="2000" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="Type your message" name="message"></textarea></span>
+		</p>
+	</div>
+	<p><div class="cf-turnstile" data-sitekey="0x4AAAAAADxTmgCtkXneLYLk"></div><span class="wpcf7-form-control-wrap" data-name="c"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text" aria-invalid="false" value="" type="text" name="c" /></span>
+	</p>
+	<div class="col-12">
+		<p><input class="wpcf7-form-control wpcf7-submit has-spinner" type="submit" value="Register Now" />
+		</p>
+	</div>
+</div><div class="gscf7-frontend-gdpr-notice"><span>Your information will be securely sent to and stored in Google Sheets for the purpose of processing your form submission.</span></div><input type='hidden' class='wpcf7-pum' value='{"closepopup":false,"closedelay":0,"openpopup":false,"openpopup_id":0}' /><div class="wpcf7-response-output" aria-hidden="true"></div>
+</form>
+</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+  document.querySelector('.top-header .close').addEventListener('click', function() {
+    var closestBody = this.closest('body');
+    if (closestBody) {
+      closestBody.classList.add('without-top-header');
+    }
+  });
+</script>
+<script>
+  /**
+   * 
+   * Old popup code
+   */
+  jQuery(document).ready(function() {
+    // Function toset a cookie
+    function setCookie(name, value, days) {
+      var expires = "";
+      if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    // Function to get a cookie
+    function getCookie(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+      }
+      return null;
+    }
+
+    // Check if the cookie exists
+    if (!getCookie('popupDisplayed')) {
+      setTimeout(function() {
+        jQuery('#popupModal').modal('show');
+      }, 1000);
+    }
+
+    // Close button click event
+    jQuery('#closePopup').on('click', function() {
+      setCookie('popupDisplayed', 'true', 1); // Set cookie for 1 day
+      jQuery('#popupModal').modal('hide');
+    });
+  });
+</script>
+
+<script>
+jQuery(document).ready(function($) {
+
+    // ===== CURRENT PAGE =====
+    let currentPath = window.location.pathname.toLowerCase();
+    currentPath = currentPath.replace(/\/+$/, '');
+
+    // ===== RESTRICTED GCC PAGES =====
+    if (
+        currentPath === '/gcc' ||
+        currentPath.startsWith('/gcc/verticals') ||
+        currentPath.startsWith('/gcc/vertical') ||
+        currentPath.startsWith('/gcc/directory') ||
+        currentPath.startsWith('/gcc/awards') ||
+        currentPath.startsWith('/gcc/intelligence') ||
+        currentPath.startsWith('/gcc/rankings') ||
+        currentPath.startsWith('/gcc/login') ||
+        currentPath.startsWith('/gcc/compare') ||
+        currentPath.startsWith('/gcc/salary-benchmark') ||
+        currentPath.startsWith('/gcc/jobs') ||
+        currentPath.startsWith('/gcc/jobs-by-function') ||
+        currentPath.startsWith('/gcc/nomination-form') ||
+        currentPath.startsWith('/gcc/dashboard') ||
+        currentPath.startsWith('/gcc/claim') ||
+        currentPath.startsWith('/offerings/eor-services-india') ||
+        currentPath.startsWith('/global-gcc-corridors') ||
+        currentPath.startsWith('/gcc/trending')
+        
+    ) {
+        console.log('Popup Disabled');
+        return;
+    }
+
+    // ===== SHOW POPUP ONCE PER BROWSER SESSION =====
+    if (!sessionStorage.getItem('popupSeen')) {
+        setTimeout(function() {
+            sessionStorage.setItem('popupSeen', 'true');
+            $('#popupModalIntro').modal('show');
+        }, 20000);
+    }
+
+    // ===== REGISTER NOW BUTTON — opens 2nd popup =====
+    $(document).on('click', '[data-bs-target="#popupModalForm"]', function(e) {
+        e.preventDefault();
+
+        // hide 1st popup WITHOUT triggering backdrop cleanup
+        $('#popupModalIntro').modal('hide');
+
+        // wait for 1st to fully close, then open 2nd
+        $('#popupModalIntro').one('hidden.bs.modal', function () {
+            // clean up manually before opening 2nd
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            $('body').css({
+                'padding-right': '0',
+                'overflow': 'auto'
+            });
+            // now open 2nd popup
+            setTimeout(function() {
+                $('#popupModalForm').modal('show');
+            }, 100);
+        });
+    });
+
+    // ===== CF7 FORM SUCCESS =====
+    document.addEventListener('wpcf7mailsent', function(event) {
+        if (event.detail.contactFormId === '12830') {
+            sessionStorage.setItem('webinarRegistered', 'true');
+            $('#popupModalForm').modal('hide');
+        }
+    }, false);
+
+    // ===== SMOOTH BACKDROP FADE ON CLOSE =====
+    $('#popupModalIntro, #popupModalForm').on('hide.bs.modal', function () {
+        $('.modal-backdrop').css('opacity', '0');
+    });
+
+    // ===== CLEAN UP AFTER CLOSE =====
+    $('#popupModalIntro, #popupModalForm').on('hidden.bs.modal', function () {
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        $('body').css({
+            'padding-right': '0',
+            'overflow': 'auto'
+        });
+    });
+
+});
+</script>
+
+
+</div>
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/sansovi/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<div 
+	id="pum-4657" 
+	role="dialog" 
+	aria-modal="false"
+	aria-labelledby="pum_popup_title_4657"
+	class="pum pum-overlay pum-theme-1805 pum-theme-lightbox popmake-overlay click_open" 
+	data-popmake="{&quot;id&quot;:4657,&quot;slug&quot;:&quot;eor-services&quot;,&quot;theme_id&quot;:1805,&quot;cookies&quot;:[],&quot;triggers&quot;:[{&quot;type&quot;:&quot;click_open&quot;,&quot;settings&quot;:{&quot;cookie_name&quot;:&quot;&quot;,&quot;extra_selectors&quot;:&quot;.newpopup&quot;}}],&quot;mobile_disabled&quot;:null,&quot;tablet_disabled&quot;:null,&quot;meta&quot;:{&quot;display&quot;:{&quot;stackable&quot;:false,&quot;overlay_disabled&quot;:false,&quot;scrollable_content&quot;:false,&quot;disable_reposition&quot;:false,&quot;size&quot;:&quot;small&quot;,&quot;responsive_min_width&quot;:&quot;0%&quot;,&quot;responsive_min_width_unit&quot;:false,&quot;responsive_max_width&quot;:&quot;100%&quot;,&quot;responsive_max_width_unit&quot;:false,&quot;custom_width&quot;:&quot;640px&quot;,&quot;custom_width_unit&quot;:false,&quot;custom_height&quot;:&quot;380px&quot;,&quot;custom_height_unit&quot;:false,&quot;custom_height_auto&quot;:false,&quot;location&quot;:&quot;center&quot;,&quot;position_from_trigger&quot;:false,&quot;position_top&quot;:&quot;100&quot;,&quot;position_left&quot;:&quot;0&quot;,&quot;position_bottom&quot;:&quot;0&quot;,&quot;position_right&quot;:&quot;0&quot;,&quot;position_fixed&quot;:false,&quot;animation_type&quot;:&quot;fade&quot;,&quot;animation_speed&quot;:&quot;350&quot;,&quot;animation_origin&quot;:&quot;center top&quot;,&quot;overlay_zindex&quot;:false,&quot;zindex&quot;:&quot;1999999999&quot;},&quot;close&quot;:{&quot;text&quot;:&quot;&quot;,&quot;button_delay&quot;:&quot;0&quot;,&quot;overlay_click&quot;:false,&quot;esc_press&quot;:false,&quot;f4_press&quot;:false},&quot;click_open&quot;:[]}}">
+
+	<div id="popmake-4657" class="pum-container popmake theme-1805 pum-responsive pum-responsive-small responsive size-small">
+
+				
+							<div id="pum_popup_title_4657" class="pum-title popmake-title">
+				Download EOR Checklist			</div>
+		
+		
+				<div class="pum-content popmake-content" tabindex="0">
+			
+<div class="wpcf7 no-js" id="wpcf7-f4654-o1" lang="en-US" dir="ltr" data-wpcf7-id="4654">
+<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
+<form action="/gcc/salary-benchmark/#wpcf7-f4654-o1" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init">
+<fieldset class="hidden-fields-container"><input type="hidden" name="_wpcf7" value="4654" /><input type="hidden" name="_wpcf7_version" value="6.2.1" /><input type="hidden" name="_wpcf7_locale" value="en_US" /><input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f4654-o1" /><input type="hidden" name="_wpcf7_container_post" value="0" /><input type="hidden" name="_wpcf7_posted_data_hash" value="" />
+</fieldset>
+<input class="wpcf7-form-control wpcf7-hidden" value="" type="hidden" name="captured_url" />
+<input class="wpcf7-form-control wpcf7-hidden" value="WEBSITE_FORM" type="hidden" name="captured_source" />
+<input class="wpcf7-form-control wpcf7-hidden" value="Download EOR Services Checklist" type="hidden" name="action" />
+<input class="wpcf7-form-control wpcf7-hidden" value="https://www.sansovi.com/wp-content/uploads/2026/06/Employer-of-Record-Checklist-SansoviGCC.pdf" type="hidden" name="brochure-url" />
+<div class="row">
+	<div class="col-12">
+		<p><span class="wpcf7-form-control-wrap" data-name="f-name"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required mc-input" aria-required="true" aria-invalid="false" placeholder="Full Name" value="" type="text" name="f-name" /></span>
+		</p>
+	</div>
+	<div class="col-12">
+		<p><span class="wpcf7-form-control-wrap" data-name="email"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-email wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-email mc-input" aria-required="true" aria-invalid="false" placeholder="Email" value="" type="email" name="email" /></span>
+		</p>
+	</div>
+	<div class="col-12">
+		<p><span class="wpcf7-form-control-wrap" data-name="phone"><input size="40" class="wpcf7-form-control wpcf7-phonetext wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-phonetext mc-input" autocomplete="tel" data-numberonly="true" aria-required="true" aria-invalid="false" placeholder="Phone" value="" type="text" name="phone" /><input type="hidden" name="phone-country-code" class="wpcf7-phonetext-country-code" /></span>
+		</p>
+	</div>
+	<p><div class="cf-turnstile" data-sitekey="0x4AAAAAADxTmgCtkXneLYLk"></div><span class="wpcf7-form-control-wrap" data-name="c"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text" aria-invalid="false" value="" type="text" name="c" /></span>
+	</p>
+	<div class="col-12">
+		<p><input class="wpcf7-form-control wpcf7-submit has-spinner mc-btn" type="submit" value="Download" />
+		</p>
+	</div>
+</div><input type='hidden' class='wpcf7-pum' value='{"closepopup":false,"closedelay":0,"openpopup":false,"openpopup_id":0}' /><div class="wpcf7-response-output" aria-hidden="true"></div>
+</form>
+</div>
+
+		</div>
+
+				
+							<button type="button" class="pum-close popmake-close" aria-label="Close">
+			×			</button>
+		
+	</div>
+
+</div>
+<div 
+	id="pum-4443" 
+	role="dialog" 
+	aria-modal="false"
+	aria-labelledby="pum_popup_title_4443"
+	class="pum pum-overlay pum-theme-1805 pum-theme-lightbox popmake-overlay click_open" 
+	data-popmake="{&quot;id&quot;:4443,&quot;slug&quot;:&quot;knowledge-hub&quot;,&quot;theme_id&quot;:1805,&quot;cookies&quot;:[],&quot;triggers&quot;:[{&quot;type&quot;:&quot;click_open&quot;,&quot;settings&quot;:{&quot;cookie_name&quot;:&quot;&quot;,&quot;extra_selectors&quot;:&quot;.popup&quot;}}],&quot;mobile_disabled&quot;:null,&quot;tablet_disabled&quot;:null,&quot;meta&quot;:{&quot;display&quot;:{&quot;stackable&quot;:false,&quot;overlay_disabled&quot;:false,&quot;scrollable_content&quot;:false,&quot;disable_reposition&quot;:false,&quot;size&quot;:&quot;small&quot;,&quot;responsive_min_width&quot;:&quot;0%&quot;,&quot;responsive_min_width_unit&quot;:false,&quot;responsive_max_width&quot;:&quot;100%&quot;,&quot;responsive_max_width_unit&quot;:false,&quot;custom_width&quot;:&quot;640px&quot;,&quot;custom_width_unit&quot;:false,&quot;custom_height&quot;:&quot;380px&quot;,&quot;custom_height_unit&quot;:false,&quot;custom_height_auto&quot;:false,&quot;location&quot;:&quot;center&quot;,&quot;position_from_trigger&quot;:false,&quot;position_top&quot;:&quot;100&quot;,&quot;position_left&quot;:&quot;0&quot;,&quot;position_bottom&quot;:&quot;0&quot;,&quot;position_right&quot;:&quot;0&quot;,&quot;position_fixed&quot;:false,&quot;animation_type&quot;:&quot;fade&quot;,&quot;animation_speed&quot;:&quot;350&quot;,&quot;animation_origin&quot;:&quot;center top&quot;,&quot;overlay_zindex&quot;:false,&quot;zindex&quot;:&quot;1999999999&quot;},&quot;close&quot;:{&quot;text&quot;:&quot;&quot;,&quot;button_delay&quot;:&quot;0&quot;,&quot;overlay_click&quot;:false,&quot;esc_press&quot;:false,&quot;f4_press&quot;:false},&quot;click_open&quot;:[]}}">
+
+	<div id="popmake-4443" class="pum-container popmake theme-1805 pum-responsive pum-responsive-small responsive size-small">
+
+				
+							<div id="pum_popup_title_4443" class="pum-title popmake-title">
+				Download Knowledge Hub Report			</div>
+		
+		
+				<div class="pum-content popmake-content" tabindex="0">
+			
+<div class="wpcf7 no-js" id="wpcf7-f4441-o2" lang="en-US" dir="ltr" data-wpcf7-id="4441">
+<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
+<form action="/gcc/salary-benchmark/#wpcf7-f4441-o2" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init">
+<fieldset class="hidden-fields-container"><input type="hidden" name="_wpcf7" value="4441" /><input type="hidden" name="_wpcf7_version" value="6.2.1" /><input type="hidden" name="_wpcf7_locale" value="en_US" /><input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f4441-o2" /><input type="hidden" name="_wpcf7_container_post" value="0" /><input type="hidden" name="_wpcf7_posted_data_hash" value="" />
+</fieldset>
+<input class="wpcf7-form-control wpcf7-hidden" value="" type="hidden" name="captured_url" />
+<input class="wpcf7-form-control wpcf7-hidden" value="WEBSITE_FORM" type="hidden" name="captured_source" />
+<input class="wpcf7-form-control wpcf7-hidden" value="Download Knowledge Hub Report" type="hidden" name="action" />
+<input class="wpcf7-form-control wpcf7-hidden" id="report-action" value="" type="hidden" name="report_action" />
+<input class="wpcf7-form-control wpcf7-hidden" id="brochure-url" value="" type="hidden" name="brochure-url" />
+<div class="row">
+	<div class="col-12">
+		<p><span class="wpcf7-form-control-wrap" data-name="f-name"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required mc-input" aria-required="true" aria-invalid="false" placeholder="Full Name" value="" type="text" name="f-name" /></span>
+		</p>
+	</div>
+	<div class="col-12">
+		<p><span class="wpcf7-form-control-wrap" data-name="email"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-email wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-email mc-input" aria-required="true" aria-invalid="false" placeholder="Email" value="" type="email" name="email" /></span>
+		</p>
+	</div>
+	<div class="col-12">
+		<p><span class="wpcf7-form-control-wrap" data-name="phone"><input size="40" class="wpcf7-form-control wpcf7-phonetext wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-phonetext mc-input" autocomplete="tel" data-numberonly="true" aria-required="true" aria-invalid="false" placeholder="Phone" value="" type="text" name="phone" /><input type="hidden" name="phone-country-code" class="wpcf7-phonetext-country-code" /></span>
+		</p>
+	</div>
+	<p><div class="cf-turnstile" data-sitekey="0x4AAAAAADxTmgCtkXneLYLk"></div><span class="wpcf7-form-control-wrap" data-name="c"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text" aria-invalid="false" value="" type="text" name="c" /></span>
+	</p>
+	<div class="col-12">
+		<p><input class="wpcf7-form-control wpcf7-submit has-spinner mc-btn" type="submit" value="Download Report" />
+		</p>
+	</div>
+</div><input type='hidden' class='wpcf7-pum' value='{"closepopup":false,"closedelay":0,"openpopup":false,"openpopup_id":0}' /><div class="wpcf7-response-output" aria-hidden="true"></div>
+</form>
+</div>
+
+		</div>
+
+				
+							<button type="button" class="pum-close popmake-close" aria-label="Close">
+			×			</button>
+		
+	</div>
+
+</div>
+<div 
+	id="pum-3513" 
+	role="dialog" 
+	aria-modal="false"
+	aria-labelledby="pum_popup_title_3513"
+	class="pum pum-overlay pum-theme-1805 pum-theme-lightbox popmake-overlay click_open" 
+	data-popmake="{&quot;id&quot;:3513,&quot;slug&quot;:&quot;legal-entity&quot;,&quot;theme_id&quot;:1805,&quot;cookies&quot;:[],&quot;triggers&quot;:[{&quot;type&quot;:&quot;click_open&quot;,&quot;settings&quot;:{&quot;cookie_name&quot;:&quot;&quot;,&quot;extra_selectors&quot;:&quot;.popup&quot;}}],&quot;mobile_disabled&quot;:null,&quot;tablet_disabled&quot;:null,&quot;meta&quot;:{&quot;display&quot;:{&quot;stackable&quot;:false,&quot;overlay_disabled&quot;:false,&quot;scrollable_content&quot;:false,&quot;disable_reposition&quot;:false,&quot;size&quot;:&quot;small&quot;,&quot;responsive_min_width&quot;:&quot;0%&quot;,&quot;responsive_min_width_unit&quot;:false,&quot;responsive_max_width&quot;:&quot;100%&quot;,&quot;responsive_max_width_unit&quot;:false,&quot;custom_width&quot;:&quot;640px&quot;,&quot;custom_width_unit&quot;:false,&quot;custom_height&quot;:&quot;380px&quot;,&quot;custom_height_unit&quot;:false,&quot;custom_height_auto&quot;:false,&quot;location&quot;:&quot;center&quot;,&quot;position_from_trigger&quot;:false,&quot;position_top&quot;:&quot;100&quot;,&quot;position_left&quot;:&quot;0&quot;,&quot;position_bottom&quot;:&quot;0&quot;,&quot;position_right&quot;:&quot;0&quot;,&quot;position_fixed&quot;:false,&quot;animation_type&quot;:&quot;fade&quot;,&quot;animation_speed&quot;:&quot;350&quot;,&quot;animation_origin&quot;:&quot;center top&quot;,&quot;overlay_zindex&quot;:false,&quot;zindex&quot;:&quot;1999999999&quot;},&quot;close&quot;:{&quot;text&quot;:&quot;&quot;,&quot;button_delay&quot;:&quot;0&quot;,&quot;overlay_click&quot;:false,&quot;esc_press&quot;:false,&quot;f4_press&quot;:false},&quot;click_open&quot;:[]}}">
+
+	<div id="popmake-3513" class="pum-container popmake theme-1805 pum-responsive pum-responsive-small responsive size-small">
+
+				
+							<div id="pum_popup_title_3513" class="pum-title popmake-title">
+				Download Entity Setup Checklist			</div>
+		
+		
+				<div class="pum-content popmake-content" tabindex="0">
+			
+<div class="wpcf7 no-js" id="wpcf7-f3511-o3" lang="en-US" dir="ltr" data-wpcf7-id="3511">
+<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
+<form action="/gcc/salary-benchmark/#wpcf7-f3511-o3" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init">
+<fieldset class="hidden-fields-container"><input type="hidden" name="_wpcf7" value="3511" /><input type="hidden" name="_wpcf7_version" value="6.2.1" /><input type="hidden" name="_wpcf7_locale" value="en_US" /><input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f3511-o3" /><input type="hidden" name="_wpcf7_container_post" value="0" /><input type="hidden" name="_wpcf7_posted_data_hash" value="" />
+</fieldset>
+<input class="wpcf7-form-control wpcf7-hidden" value="" type="hidden" name="captured_url" />
+<input class="wpcf7-form-control wpcf7-hidden" value="WEBSITE_FORM" type="hidden" name="captured_source" />
+<input class="wpcf7-form-control wpcf7-hidden" value="Download Entity Setup Checklist" type="hidden" name="action" />
+<input class="wpcf7-form-control wpcf7-hidden" value="https://www.sansovi.com/wp-content/uploads/2026/04/Legal-Entity-Setup-Checklist-SansoviGCC-1.pdf" type="hidden" name="brochure-url" />
+<div class="row">
+	<div class="col-12">
+		<p><span class="wpcf7-form-control-wrap" data-name="f-name"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required mc-input" aria-required="true" aria-invalid="false" placeholder="Full Name" value="" type="text" name="f-name" /></span>
+		</p>
+	</div>
+	<div class="col-12">
+		<p><span class="wpcf7-form-control-wrap" data-name="email"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-email wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-email mc-input" aria-required="true" aria-invalid="false" placeholder="Email" value="" type="email" name="email" /></span>
+		</p>
+	</div>
+	<div class="col-12">
+		<p><span class="wpcf7-form-control-wrap" data-name="phone"><input size="40" class="wpcf7-form-control wpcf7-phonetext wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-phonetext mc-input" autocomplete="tel" data-numberonly="true" aria-required="true" aria-invalid="false" placeholder="Phone" value="" type="text" name="phone" /><input type="hidden" name="phone-country-code" class="wpcf7-phonetext-country-code" /></span>
+		</p>
+	</div>
+	<p><div class="cf-turnstile" data-sitekey="0x4AAAAAADxTmgCtkXneLYLk"></div><span class="wpcf7-form-control-wrap" data-name="c"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text" aria-invalid="false" value="" type="text" name="c" /></span>
+	</p>
+	<div class="col-12">
+		<p><input class="wpcf7-form-control wpcf7-submit has-spinner mc-btn" type="submit" value="Download" />
+		</p>
+	</div>
+</div><input type='hidden' class='wpcf7-pum' value='{"closepopup":false,"closedelay":0,"openpopup":false,"openpopup_id":0}' /><div class="wpcf7-response-output" aria-hidden="true"></div>
+</form>
+</div>
+
+		</div>
+
+				
+							<button type="button" class="pum-close popmake-close" aria-label="Close">
+			×			</button>
+		
+	</div>
+
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    function setUrlFields() {
+        var pageUrl = window.location.href;
+
+        // Set CF7 hidden field value
+        document.querySelectorAll('input[name="captured_url"]').forEach(function(field) {
+            field.value = pageUrl;
+        });
+    }
+
+    /* Run for normal forms */
+    setUrlFields();
+
+    /* Run again for popup forms (Popup Maker / dynamic forms) */
+    document.addEventListener('pumAfterOpen', function () {
+        setUrlFields();
+    });
+
+});
+</script>
+    <script>
+    document.addEventListener('wpcf7mailsent', function(event) {
+
+        // Only for forms 3511 and 4654
+        if (![3511, 4654].includes(event.detail.contactFormId)) {
+            return;
+        }
+
+        let pdfUrlField = event.target.querySelector('input[name="brochure-url"]');
+        if (!pdfUrlField) return;
+
+        let pdfUrl = pdfUrlField.value;
+        if (!pdfUrl) return;
+
+        let link = document.createElement('a');
+        link.href = pdfUrl;
+        link.download = '';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+    </script>
+        
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const buttons = document.querySelectorAll(".download-report-btn");
+
+        buttons.forEach(button => {
+
+            button.addEventListener("click", function(){
+
+                let reportTitle = this.getAttribute("data-title");
+                let pdfUrl = this.getAttribute("data-pdf");
+
+                document.getElementById("report-action").value = reportTitle;
+                document.getElementById("brochure-url").value = pdfUrl;
+
+            });
+
+        });
+
+    });
+
+    document.addEventListener('wpcf7mailsent', function(event) {
+
+        let pdfUrl = document.getElementById("brochure-url").value;
+
+        if(pdfUrl){
+
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = '';
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+        }
+
+    }, false);
+    </script>
+
+        <style>
+        .wpcf7 input[name="c"] {
+            display: none;
+        }
+        .wpcf7 .cf-turnstile {
+            margin-top: -10px;
+        }
+    </style>
+<script id="wp-hooks-js" src="https://www.sansovi.com/wp-includes/js/dist/hooks.min.js?ver=f0f188028580e8dc1255"></script>
+<script id="wp-i18n-js" src="https://www.sansovi.com/wp-includes/js/dist/i18n.min.js?ver=1dfe7db3940c23ea9216"></script>
+<script id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script id="swv-js" src="https://www.sansovi.com/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.2.1"></script>
+<script id="contact-form-7-js-before">
+var wpcf7 = {
+    "api": {
+        "root": "https:\/\/www.sansovi.com\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+var wpcf7 = {
+    "api": {
+        "root": "https:\/\/www.sansovi.com\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+var wpcf7 = {
+    "api": {
+        "root": "https:\/\/www.sansovi.com\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+var wpcf7 = {
+    "api": {
+        "root": "https:\/\/www.sansovi.com\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+//# sourceURL=contact-form-7-js-before
+</script>
+<script id="contact-form-7-js" src="https://www.sansovi.com/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.2.1"></script>
+<script id="nbcpf-intlTelInput-script-js" src="https://www.sansovi.com/wp-content/plugins/country-phone-field-contact-form-7/assets/js/intlTelInput.min.js?ver=7.1.3"></script>
+<script id="nbcpf-countryFlag-script-js-extra">
+var nbcpf = {"ajaxurl":"https://www.sansovi.com/wp-admin/admin-ajax.php"};
+//# sourceURL=nbcpf-countryFlag-script-js-extra
+</script>
+<script id="nbcpf-countryFlag-script-js" src="https://www.sansovi.com/wp-content/plugins/country-phone-field-contact-form-7/assets/js/countrySelect.min.js?ver=7.1.3"></script>
+<script id="nbcpf-countryFlag-script-js-after">
+		(function($) {
+			$(function() {
+
+				function render_country_flags(){
+
+					$(".wpcf7-countrytext").countrySelect({
+						defaultCountry: "in",
+					});
+					$(".wpcf7-phonetext").intlTelInput({
+						autoHideDialCode: true,
+						autoPlaceholder: true,
+						nationalMode: false,
+						separateDialCode: true,
+						hiddenInput: "full_number",
+						initialCountry: "in",preferredCountries: ["in"],	
+					});
+	
+					$(".wpcf7-phonetext").each(function () {
+
+						var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+
+						var hiddenInput = $(this).attr('name');
+						//console.log(hiddenInput);
+						$("input[name="+hiddenInput+"-country-code]").val(dial_code);
+					});
+					
+					$(".wpcf7-phonetext").on("countrychange", function() {
+						// do something with iti.getSelectedCountryData()
+						//console.log(this.value);
+						var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+						var hiddenInput = $(this).attr("name");
+						$("input[name="+hiddenInput+"-country-code]").val(dial_code);
+						
+					});
+						$(".wpcf7-phonetext").on("keyup", function() {
+							var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+							
+							var value   = $(this).val();
+							//console.log(dial_code, value);
+							if(value == "+")
+								$(this).val("");
+							else if(value.indexOf("+") == "-1")
+								$(this).val(dial_code + value);
+							else if(value.indexOf("+") > 0)
+								$(this).val(dial_code + value.substring(dial_code.length));
+						});
+						$(".wpcf7-countrytext").on("keyup", function() {
+						var country_name = $(this).siblings(".flag-dropdown").find(".country-list li.active span.country-name").text();
+						if(country_name == "")
+						var country_name = $(this).siblings(".flag-dropdown").find(".country-list li.highlight span.country-name").text();
+						
+						var value   = $(this).val();
+						//console.log(country_name, value);
+						$(this).val(country_name + value.substring(country_name.length));
+					});
+				}
+
+				var ip_address = "";
+
+				jQuery.ajax({
+					url: "https://ipinfo.io/json",
+					//url: "https://reallyfreegeoip.org/json/",
+					success: function(response){
+						
+						//console.log(response);
+						//var location = JSON.parse(response);
+						console.log(response.country);
+						if( response.country !== undefined){
+							//console.log("here");
+							$(".wpcf7-countrytext").countrySelect({defaultCountry: response.country.toLowerCase(),
+							});
+							$(".wpcf7-phonetext").intlTelInput({
+								autoHideDialCode: true,
+								autoPlaceholder: true,
+								nationalMode: false,
+								separateDialCode: true,
+								hiddenInput: "full_number",initialCountry: response.country.toLowerCase(),preferredCountries: ["in"],	
+							});
+							
+							$(".wpcf7-phonetext").each(function () {
+								var hiddenInput = $(this).attr('name');
+								//console.log(hiddenInput);
+								var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+								$("input[name="+hiddenInput+"-country-code]").val(dial_code);
+							});
+							
+							$(".wpcf7-phonetext").on("countrychange", function() {
+								// do something with iti.getSelectedCountryData()
+								//console.log(this.value);
+								var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+								var hiddenInput = $(this).attr("name");
+								$("input[name="+hiddenInput+"-country-code]").val(dial_code);
+								
+							});
+								
+								$(".wpcf7-phonetext").on("keyup", function() {
+									var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+									
+									var value   = $(this).val();
+									if(value == "+")
+										$(this).val("");
+									else if(value.indexOf("+") == "-1")
+										$(this).val(dial_code + value);
+									else if(value.indexOf("+") > 0)
+										$(this).val(dial_code + value.substring(dial_code.length));
+								
+								});$(".wpcf7-countrytext").on("keyup", function() {
+								var country_name = $(this).siblings(".flag-dropdown").find(".country-list li.active span.country-name").text();
+								if(country_name == "")
+								var country_name = $(this).siblings(".flag-dropdown").find(".country-list li.highlight span.country-name").text();
+								
+								var value   = $(this).val();
+								//console.log(country_name, value);
+								$(this).val(country_name + value.substring(country_name.length));
+							});
+
+						} else {
+
+							render_country_flags();
+
+						}
+
+					},
+					error: function(){
+						render_country_flags();
+					}
+				});
+			});
+		})(jQuery);
+//# sourceURL=nbcpf-countryFlag-script-js-after
+</script>
+<script id="wpcf7-redirect-script-js-extra">
+var wpcf7r = {"ajax_url":"https://www.sansovi.com/wp-admin/admin-ajax.php"};
+//# sourceURL=wpcf7-redirect-script-js-extra
+</script>
+<script id="wpcf7-redirect-script-js" src="https://www.sansovi.com/wp-content/plugins/wpcf7-redirect/build/assets/frontend-script.js?ver=2c532d7e2be36f6af233"></script>
+<script id="sansovi-navigation-js" src="https://www.sansovi.com/wp-content/themes/sansovi/js/navigation.js?ver=1.0.0"></script>
+<script id="bootstrap-js" src="https://www.sansovi.com/wp-content/themes/sansovi/dependencies/bootstrap/js/bootstrap.min.js?ver=1.0.0"></script>
+<script id="swiper-js" src="https://www.sansovi.com/wp-content/themes/sansovi/dependencies/swiper/js/swiper.min.js?ver=1.0.0"></script>
+<script id="jquery-appear-js" src="https://www.sansovi.com/wp-content/themes/sansovi/dependencies/jquery.appear/jquery.appear.js?ver=1.0.0"></script>
+<script id="countUp-js" src="https://www.sansovi.com/wp-content/themes/sansovi/dependencies/countUp.js/countUp.min.js?ver=1.0.0"></script>
+<script id="parallax-js" src="https://www.sansovi.com/wp-content/themes/sansovi/assets/js/jquery.parallax.min.js?ver=1.0.0"></script>
+<script id="magnific-popup-js" src="https://www.sansovi.com/wp-content/themes/sansovi/dependencies/magnific-popup/js/jquery.magnific-popup.min.js?ver=1.0.0"></script>
+<script id="app-js-js" src="https://www.sansovi.com/wp-content/themes/sansovi/assets/js/app.js?ver=1791547458"></script>
+<script id="jquery-ui-core-js-before">
+jQuery.uiBackCompat = true;
+//# sourceURL=jquery-ui-core-js-before
+</script>
+<script id="jquery-ui-core-js" src="https://www.sansovi.com/wp-includes/js/jquery/ui/core.min.js?ver=1.14.2"></script>
+<script id="popup-maker-site-js-extra">
+var pum_vars = {"version":"1.25.0","pm_dir_url":"https://www.sansovi.com/wp-content/plugins/popup-maker/","ajaxurl":"https://www.sansovi.com/wp-admin/admin-ajax.php","restapi":"https://www.sansovi.com/wp-json/pum/v1","rest_nonce":null,"default_theme":"1804","debug_mode":"","disable_tracking":"","disable_url_params":"","home_url":"/","message_position":"top","core_sub_forms_enabled":"1","popups":[],"cookie_domain":"","paramNames":{"popup_id":"pid","cta":"cta","notrack":"notrack"},"analytics_enabled":"1","analytics_route":"analytics","analytics_api":"https://www.sansovi.com/wp-json/pum/v1"};
+var pum_sub_vars = {"ajaxurl":"https://www.sansovi.com/wp-admin/admin-ajax.php","message_position":"top"};
+var pum_popups = {"pum-4657":{"triggers":[{"type":"click_open","settings":{"cookie_name":"","extra_selectors":".newpopup"}}],"cookies":[],"disable_on_mobile":false,"disable_on_tablet":false,"explain":null,"type_section":null,"theme_id":"1805","size":"small","responsive_min_width":"0%","responsive_max_width":"100%","custom_width":"640px","custom_height_auto":false,"custom_height":"380px","scrollable_content":false,"animation_type":"fade","animation_speed":"350","animation_origin":"center top","open_sound":"none","custom_sound":"","location":"center","position_top":"100","position_bottom":"0","position_left":"0","position_right":"0","position_from_trigger":false,"position_fixed":false,"overlay_disabled":false,"stackable":false,"disable_reposition":false,"zindex":"1999999999","close_button_delay":"0","close_on_form_submission":false,"close_on_form_submission_delay":"0","close_on_overlay_click":false,"close_on_esc_press":false,"close_on_f4_press":false,"disable_form_reopen":false,"disable_accessibility":false,"theme_slug":"lightbox","id":4657,"slug":"eor-services"},"pum-4443":{"triggers":[{"type":"click_open","settings":{"cookie_name":"","extra_selectors":".popup"}}],"cookies":[],"disable_on_mobile":false,"disable_on_tablet":false,"explain":null,"type_section":null,"theme_id":"1805","size":"small","responsive_min_width":"0%","responsive_max_width":"100%","custom_width":"640px","custom_height_auto":false,"custom_height":"380px","scrollable_content":false,"animation_type":"fade","animation_speed":"350","animation_origin":"center top","open_sound":"none","custom_sound":"","location":"center","position_top":"100","position_bottom":"0","position_left":"0","position_right":"0","position_from_trigger":false,"position_fixed":false,"overlay_disabled":false,"stackable":false,"disable_reposition":false,"zindex":"1999999999","close_button_delay":"0","close_on_form_submission":false,"close_on_form_submission_delay":"0","close_on_overlay_click":false,"close_on_esc_press":false,"close_on_f4_press":false,"disable_form_reopen":false,"disable_accessibility":false,"theme_slug":"lightbox","id":4443,"slug":"knowledge-hub"},"pum-3513":{"triggers":[{"type":"click_open","settings":{"cookie_name":"","extra_selectors":".popup"}}],"cookies":[],"disable_on_mobile":false,"disable_on_tablet":false,"explain":null,"type_section":null,"theme_id":"1805","size":"small","responsive_min_width":"0%","responsive_max_width":"100%","custom_width":"640px","custom_height_auto":false,"custom_height":"380px","scrollable_content":false,"animation_type":"fade","animation_speed":"350","animation_origin":"center top","open_sound":"none","custom_sound":"","location":"center","position_top":"100","position_bottom":"0","position_left":"0","position_right":"0","position_from_trigger":false,"position_fixed":false,"overlay_disabled":false,"stackable":false,"disable_reposition":false,"zindex":"1999999999","close_button_delay":"0","close_on_form_submission":false,"close_on_form_submission_delay":"0","close_on_overlay_click":false,"close_on_esc_press":false,"close_on_f4_press":false,"disable_form_reopen":false,"disable_accessibility":false,"theme_slug":"lightbox","id":3513,"slug":"legal-entity"}};
+//# sourceURL=popup-maker-site-js-extra
+</script>
+<script id="popup-maker-site-js" src="//www.sansovi.com/wp-content/uploads/pum/pum-site-scripts.js?defer&#038;generated=1782209991&#038;ver=1.25.0"></script>
+<script id="cloudflare-turnstile-js" src="https://challenges.cloudflare.com/turnstile/v0/api.js?ver=7.1.3"></script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://www.sansovi.com/wp-includes/js/wp-emoji-release.min.js?ver=7.1.3"}}
+</script>
+<script type="module">
+/*! This file is auto-generated */
+var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof HTMLScriptElement))throw new Error("Element missing: "+e);const r=JSON.parse(t.text),s=(window._wpemojiSettings=r,"wpEmojiSettingsSupports"),o=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(s,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const r=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===r[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,r){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!r(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,r){let a;const s=(a="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),o=(s.textBaseline="top",s.font="600 32px Arial",{});return e.forEach(e=>{o[e]=t(s,e,n,r)}),o}function a(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}r.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(s));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(o),u.toString(),c.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"});const a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=e=>{i(n=e.data),a.terminate(),t(n)})}catch(e){}i(n=f(o,u,c,p))}t(n)}).then(e=>{for(const n in e)r.supports[n]=e[n],r.supports.everything=r.supports.everything&&r.supports[n],"flag"!==n&&(r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&r.supports[n]);var t;r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&!r.supports.flag,r.supports.everything||((t=r.source||{}).concatemoji?a(t.concatemoji):t.wpemoji&&t.twemoji&&(a(t.twemoji),a(t.wpemoji)))});
+//# sourceURL=https://www.sansovi.com/wp-includes/js/wp-emoji-loader.min.js
+</script>
+    <script src="https://storage.googleapis.com/kriatix-crm-files/chatbot-flows/sansovi-bot-flow.js?v=1791547458" async></script>
+    <script>
+	document.querySelector('.top-header .close').addEventListener('click', function() {
+		var closestBody = this.closest('body');
+		if (closestBody) {
+			closestBody.classList.add('without-top-header');
+		}
+	});
+</script>
+<script>
+    
+document.addEventListener("DOMContentLoaded", function () {
+
+const faqItems = document.querySelectorAll(".faq-item");
+
+faqItems.forEach(function(item){
+
+const question = item.querySelector(".faq-question");
+const answer = item.querySelector(".faq-answer");
+
+question.addEventListener("click", function(){
+
+// close other items
+faqItems.forEach(function(i){
+if(i !== item){
+i.classList.remove("active");
+i.querySelector(".faq-answer").style.maxHeight = null;
+}
+});
+
+// toggle current
+item.classList.toggle("active");
+
+if(item.classList.contains("active")){
+answer.style.maxHeight = answer.scrollHeight + "px";
+}else{
+answer.style.maxHeight = null;
+}
+
+});
+
+});
+
+}); 
+    
+</script>
+</body>
+
+</html>
