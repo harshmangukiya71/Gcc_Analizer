@@ -108,9 +108,9 @@ python app.py
 ```
 
 Then open your browser at:
-- **Interactive Dashboard:** [http://localhost:8000](http://localhost:8000)
-- **Interactive Swagger API Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
-- **ReDoc Documentation:** [http://localhost:8000/redoc](http://localhost:8000/redoc)
+- **Live Interactive Dashboard:** https://gcc-analizer.onrender.com/
+- **Interactive Swagger API Docs:** https://gcc-analizer.onrender.com/docs
+- **Salary Data Reference (Sansovi):** https://www.sansovi.com/gcc/salary-benchmark/
 
 ---
 
